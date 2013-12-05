@@ -42,7 +42,7 @@ This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlighten
 == Changelog ==
 
 = 1.0.4.131205 =
-* Added missing Composer dependencies
+* Added missing Composer dependencies.
 
 
 = 1.0.3.131201 =
