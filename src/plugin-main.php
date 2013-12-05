@@ -11,7 +11,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
  */
 class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
 	// @var string The plugin version
-	public static $version = '1.0.2.131122';
+	public static $version = '1.0.4.131205';
 
 	// @var string The plugin instance key, used to retrieve the plugin instance
 	public static $plugin_slug = 'wc-skrill-gateway';

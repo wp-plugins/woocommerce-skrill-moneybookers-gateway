@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: woocommerce, skrill
 Requires at least: 3.4
 Tested up to: 3.7
-Stable tag: 1.0.3.131201
+Stable tag: 1.0.4.131205
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -40,6 +40,10 @@ If you wish to get more details about Skrill, please refer to [Skrill website](h
 This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlightenment.net/shop/currency-switcher-woocommerce/). If you are using the Currency Switcher, and you find out that the Skrill gateway is not appearing on the checkout page, please go to ```WooCommerce > Currency Switcher Options > Payment Gateways``` and make sure that **Skrill** is listed amongst the **Enabled Gateways**.
 
 == Changelog ==
+
+= 1.0.4.131205 =
+* Added missing Composer dependencies
+
 
 = 1.0.3.131201 =
 * Fixed checks related to debug mode.
