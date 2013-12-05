@@ -1,0 +1,13 @@
+/* CSS Styles for Admin pages */
+
+.donate {
+	float: right;
+	background-color: #F0FFF0;
+	border-color: #9ACD32;
+	padding: 0 .6em;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0.5em;
+}

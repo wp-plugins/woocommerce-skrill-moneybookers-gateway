@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="name-of-project" default="build">
+	<property name="artifacts_dir" value="${basedir}/build" />
+	<property name="release_dir" value="${artifacts_dir}/release" />
+	<property name="wp_unit_plugins_dir" value="${wp_unit_dir}/wordpress/wp-content/plugins/" />
+
+	<target name="build"
+					depends="prepare,composer,lint,phploc,pdepend,phpmd-ci,phpcpd,phpdox,phpunit,phpcb,prepare-release"/>
+
+ <target name="build-parallel"
+				 depends="prepare,composer,lint,tools-parallel,phpunit,phpcb,prepare-release"/>
+
+ <target name="tools-parallel" description="Run tools in parallel">
+		<parallel threadCount="2">
+			<sequential>
+				<antcall target="pdepend"/>
+				<antcall target="phpmd-ci"/>
+			</sequential>
+			<antcall target="phpcpd"/>
+			<!--<antcall target="phpcs-ci"/>-->
+			<antcall target="phploc"/>
+			<antcall target="phpdox"/>
+		</parallel>
+	</target>
+
+
+ <target name="clean" description="Cleanup build artifacts">
+		<delete dir="${artifacts_dir}/api"/>
+		<delete dir="${artifacts_dir}/code-browser"/>
+		<delete dir="${artifacts_dir}/coverage"/>
+		<delete dir="${artifacts_dir}/logs"/>
+		<delete dir="${artifacts_dir}/pdepend"/>
+		<delete dir="${release_dir}"/>
+
+		<!-- Delete plugin dependencies -->
+		<echo message="Deleting WooCommerce plugin from ${wp_unit_plugins_dir}..." />
+		<delete file="${wp_unit_plugins_dir}/woocommerce" followsymlinks="false" removenotfollowedsymlinks="true" quiet="true" />
+	</target>
+
+	<target name="prepare" depends="clean" description="Prepare for build">
+		<mkdir dir="${artifacts_dir}/api"/>
+		<mkdir dir="${artifacts_dir}/code-browser"/>
+		<mkdir dir="${artifacts_dir}/coverage"/>
+		<mkdir dir="${artifacts_dir}/logs"/>
+		<mkdir dir="${artifacts_dir}/pdepend"/>
+		<mkdir dir="${artifacts_dir}/phpdox"/>
+		<mkdir dir="${release_dir}"/>
+
+		<!-- Install plugin dependencies -->
+		<echo message="Using WooCommerce plugin from ${woocommerce_plugin_dir}..." />
+		<property name="woocommerce_plugin_dir" value="${wordpress_plugins_dir}/${wc_plugin_dir}" />
+		<symlink link="${wp_unit_plugins_dir}/woocommerce"
+						 resource="${woocommerce_plugin_dir}"
+						 overwrite="true"
+						 failonerror="true" />
+	</target>
+
+	<!-- Update Composer required files -->
+	<target name="composer" depends="clean" description="Update external libraries">
+		<exec executable="php" dir="${basedir}/src" failonerror="true">
+			<arg value='/usr/local/bin/composer' />
+			<arg value='--dev' />
+			<arg value='install' />
+		</exec>
+	</target>
+
+	<target name="lint" description="Perform syntax check of sourcecode files">
+		<apply executable="php" failonerror="true">
+			<arg value="-l" />
+			<fileset dir="${basedir}/.">
+				<include name="**/*.php" />
+				<exclude name="src/vendor/**" />
+				<modified />
+			</fileset>
+			<fileset dir="${basedir}/tests">
+				<include name="**/*.php" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
+
+
+ <target name="phploc" description="Measure project size using PHPLOC">
+		<exec executable="phploc">
+			<arg value="--log-csv" />
+			<arg value="${basedir}/build/logs/phploc.csv" />
+			<arg value="--exclude" />
+			<arg value="${basedir}/tests/" />
+			<arg path="${basedir}/src" />
+		</exec>
+	</target>
+
+
+ <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+		<exec executable="pdepend">
+			<arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+			<arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+			<arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+			<arg path="${basedir}/src" />
+		</exec>
+	</target>
+
+
+ <target name="phpmd"
+				 description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
+		<exec executable="phpmd">
+			<arg path="${basedir}/src" />
+			<arg value="text" />
+			<arg value="${basedir}/build/phpmd.xml" />
+			<arg value="--ignore=src/vendor/,tests/" />
+		</exec>
+	</target>
+
+
+ <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+		<exec executable="phpmd">
+			<arg path="${basedir}/src" />
+			<arg value="xml" />
+			<arg value="${basedir}/build/phpmd.xml" />
+			<arg value="--reportfile" />
+			<arg value="${basedir}/build/logs/pmd.xml" />
+			<arg value="--ignore=src/vendor/,tests/" />
+		</exec>
+	</target>
+
+
+ <target name="phpcs"
+				 description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+		<exec executable="phpcs">
+			<arg value="--standard=${basedir}/build/phpcs.xml" />
+			<arg value="--ignore=src/vendor/,tests/" />
+			<arg path="${basedir}/src" />
+		</exec>
+	</target>
+
+
+	<target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+		<exec executable="phpcs" output="/dev/null">
+			<arg value="--report=checkstyle" />
+			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+			<arg value="--standard=${basedir}/build/phpcs.xml" />
+			<arg value="--ignore=src/vendor/,tests/" />
+			<arg path="${basedir}/src" />
+		</exec>
+	</target>
+
+
+	<target name="phpcpd" description="Find duplicate code using PHPCPD">
+		<exec executable="phpcpd">
+			<arg value="--log-pmd" />
+			<arg value="${basedir}/build/logs/pmd-cpd.xml" />
+			<arg path="${basedir}/src" />
+			<arg value="--exclude" />
+			<arg value="src/vendor/" />
+			<arg value="--exclude" />
+			<arg value="tests/" />
+		</exec>
+	</target>
+
+	<target name="phpdox" description="Generate API documentation using phpDox">
+		<exec executable="phpdox">
+			<arg value="--file" />
+			<arg value="${basedir}/build/phpdox.xml" />
+		</exec>
+	</target>
+
+	<target name="phpunit" description="Run unit tests with PHPUnit">
+		<exec executable="phpunit" failonerror="true">
+			<arg value="--configuration" />
+			<arg value="${basedir}/build/phpunit.xml" />
+		</exec>
+	</target>
+
+	<target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+		<exec executable="phpcb">
+			<arg value="--log" />
+			<arg path="${basedir}/build/logs" />
+			<arg value="--source" />
+			<arg path="${basedir}/src" />
+			<arg value="--output" />
+			<arg path="${basedir}/build/code-browser" />
+		</exec>
+	</target>
+
+	<!-- Run composer again without "dev" flag to remove development packages -->
+	<target name="composer-prepare-release" description="Update external libraries removing development packages">
+		<exec executable="php" dir="${basedir}/src" failonerror="true">
+			<arg value='/usr/local/bin/composer' />
+			<arg value='install' />
+		</exec>
+	</target>
+
+	<!-- Prepare release files -->
+	<target name="prepare-release" depends="phpunit,composer-prepare-release" description="Produce a release package">
+		<tempfile property="release_temp_dir" suffix=".tmp" deleteonexit="false" />
+		<property name="plugin_dir" value="${basedir}" />
+		<property name="plugin_name" value="${ant.project.name}" />
+
+		<!-- Retrieve the name to give to the compressed file. If not specified, use Plugin Name -->
+		<condition property="compress_destination_file" value="${package_file_name}" else="${plugin_name}">
+			<isset property="package_file_name"/>
+		</condition>
+
+		<copy todir="${release_temp_dir}/${plugin_name}">
+			<fileset dir="${plugin_dir}" />
+		</copy>
+
+		<!-- Compress files into a release package -->
+		<property name="compress_source_dir" value="${release_temp_dir}" />
+		<property name="compress_includes" value="${plugin_name}/*.php, ${plugin_name}/*.md, ${plugin_name}/src/**" />
+		<property name="compress_excludes" value="**/tests/**" />
+
+
+		<!-- Debug
+		<echo message="Release dir: ${release_dir}" />
+		<echo message="Destination file: ${release_dir}/${compress_destination_file}.zip" />
+		<echo message="Source dir to compress: ${compress_source_dir}" />
+		<echo message="Compressed destination file: ${compress_destination_file}" />
+		<echo message="Includes: ${compress_includes}" />
+		<echo message="Excludes: ${compress_excludes}" />
+		-->
+
+		<zip basedir="${compress_source_dir}"
+				 destfile="${release_dir}/${compress_destination_file}.zip"
+				 includes="${compress_includes}"
+				 excludes="${compress_excludes}"
+				 whenempty="skip" />
+	</target>
+</project>
