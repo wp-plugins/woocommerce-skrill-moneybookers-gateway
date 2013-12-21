@@ -13,7 +13,6 @@ Allows WooCommerce to accept payments using Skrill gateway.
 == Description ==
 The plugin will add a new payment gateway called Skrill (Moneybookers), which will add support for the Skrill payment gateway. Upon checkout, your customers will be redirected to a secure portal where they can complete their payment. Both standard and Quick Checkout modes are supported. - See more at: http://dev.pathtoenlightenment.net/shop/skrill-gateway-for-woocommerce-2-0-x/
 
-Should you have any questions about this product, please have a look at the [Knowledge Base](https://aelia.freshdesk.com/support/solutions), or feel free to [contact us](http://dev.pathtoenlightenment.net/contact/).
 
 ##Requirements
 * WordPress 3.4+ (plugin has been tested up to WordPress 3.7)
@@ -24,7 +23,7 @@ Should you have any questions about this product, please have a look at the [Kno
 * Plugin does not support pre-authorisation or subscriptions.
 
 ## Notes
-* The plugin is provided free of charge, and it's not covered by free spport.
+* The plugin is provided free of charge, and it's not covered by free spport. Should you have any questions about this product, please use the [product support section on this site](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway). We will deal with each enquiry as soon as possible.
 
 
 == Installation ==
