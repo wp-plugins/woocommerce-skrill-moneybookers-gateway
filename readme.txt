@@ -20,6 +20,13 @@ Should you have any questions about this product, please have a look at the [Kno
 * PHP 5.3+
 * WooCommerce 1.6/2.0.x (plugin has been tested up to WooCommerce 2.0.20)
 
+## Notes
+The plugin is provided free of charge, and it's not covered by free support.
+
+## Current limitations
+* Plugin does not support pre-authorisation or subscriptions.
+
+
 == Installation ==
 
 1. Extract the zip file and drop the contents in the ```wp-content/plugins/``` directory of your WordPress installation.
@@ -55,6 +62,3 @@ This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlighten
 
 = 1.0.0.130102 =
 * First official release
-
-== Notes ==
-The plugin is provided free of charge, and it's not covered by free support.
