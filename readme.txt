@@ -20,11 +20,11 @@ Should you have any questions about this product, please have a look at the [Kno
 * PHP 5.3+
 * WooCommerce 1.6/2.0.x (plugin has been tested up to WooCommerce 2.0.20)
 
-## Notes
-The plugin is provided free of charge, and it's not covered by free support.
-
 ## Current limitations
 * Plugin does not support pre-authorisation or subscriptions.
+
+## Notes
+* The plugin is provided free of charge, and it's not covered by free spport.
 
 
 == Installation ==
