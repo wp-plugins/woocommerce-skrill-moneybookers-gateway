@@ -15,5 +15,4 @@ return array(
     'WC_Aelia_Settings' => $baseDir . '/lib/classes/base/settings/wc-aelia-settings.php',
     'WC_Aelia_Settings_Renderer' => $baseDir . '/lib/classes/base/settings/wc-aelia-settings-renderer.php',
     'WC_Gateway_Skrill' => $baseDir . '/lib/classes/payment_gateways/class-wc-gateway-skrill.php',
-    'woocommerce_skrill' => $baseDir . '/lib/classes/payment_gateways/gateway-skrill.php',
 );
