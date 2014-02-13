@@ -18,6 +18,20 @@
  * @license    http://github.com/padraic/mockery/blob/master/LICENSE New BSD License
  */
 
+use Mockery\Generator\MockConfigurationBuilder;
+use Mockery\Generator\CachingGenerator;
+use Mockery\Generator\StringManipulationGenerator;
+use Mockery\Generator\StringManipulation\Pass\CallTypeHintPass;
+use Mockery\Generator\StringManipulation\Pass\ClassNamePass;
+use Mockery\Generator\StringManipulation\Pass\ClassPass;
+use Mockery\Generator\StringManipulation\Pass\InstanceMockPass;
+use Mockery\Generator\StringManipulation\Pass\InterfacePass;
+use Mockery\Generator\StringManipulation\Pass\MethodDefinitionPass;
+use Mockery\Generator\StringManipulation\Pass\RemoveBuiltinMethodsThatAreFinalPass;
+use Mockery\Loader\EvalLoader;
+use Mockery\Loader\RequireLoader;
+use Mockery\Loader\Loader;
+
 class Mockery
 {
     const BLOCKS = 'Mockery_Forward_Blocks';
@@ -37,26 +51,46 @@ class Mockery
     protected static $_config = null;
 
     /**
+     * @var \Mockery\Generator\Generator
+     */
+    protected static $_generator;
+
+    /**
+     * @var \Mockery\Loader\Loader
+     */
+    protected static $_loader;
+
+    /**
      * Static shortcut to \Mockery\Container::mock()
      *
      * @return \Mockery\MockInterface
      */
     public static function mock()
     {
-        if (is_null(self::$_container)) {
-            self::$_container = new \Mockery\Container;
-        }
         $args = func_get_args();
-        return call_user_func_array(array(self::$_container, 'mock'), $args);
+        return call_user_func_array(array(self::getContainer(), 'mock'), $args);
     }
 
     public static function instanceMock()
     {
-        if (is_null(self::$_container)) {
-            self::$_container = new \Mockery\Container;
-        }
         $args = func_get_args();
-        return call_user_func_array(array(self::$_container, 'instanceMock'), $args);
+        return call_user_func_array(array(self::getContainer(), 'mock'), $args);
+    }
+
+    /**
+     * Static shortcut to \Mockery\Container::mock(), first argument names the 
+     * mock
+     *
+     * @return \Mockery\MockInterface
+     */
+    public static function namedMock()
+    {
+        $args = func_get_args();
+        $name = array_shift($args);
+        $builder = new MockConfigurationBuilder();
+        $builder->setName($name);
+        array_unshift($args, $builder);
+        return call_user_func_array(array(self::getContainer(), 'mock'), $args);
     }
 
     /**
@@ -72,7 +106,7 @@ class Mockery
 
         return self::$_container->self();
     }
-    
+
     /**
      * Static shortcut to closing up and verifying all mocks in the global
      * container, and resetting the container static variable to null
@@ -100,8 +134,67 @@ class Mockery
      */
     public static function getContainer()
     {
-        return self::$_container;
+        if (self::$_container) {
+            return self::$_container;
+        }
+
+        return self::$_container = new Mockery\Container(self::getGenerator(), self::getLoader());
     }
+
+    public static function setGenerator(Generator $generator)
+    {
+        self::$_generator = $generator;
+    }
+
+    public static function getGenerator()
+    {
+        if (self::$_generator) {
+            return self::$_generator;
+        }
+
+        self::$_generator = self::getDefaultGenerator();
+
+        return self::$_generator;
+    }
+
+    public static function getDefaultGenerator()
+    {
+        $generator = new StringManipulationGenerator(array(
+            new CallTypeHintPass(),
+            new ClassPass(),
+            new ClassNamePass(),
+            new InstanceMockPass(),
+            new InterfacePass(),
+            new MethodDefinitionPass(),
+            new RemoveBuiltinMethodsThatAreFinalPass(),
+        ));
+
+        $generator = new CachingGenerator($generator);
+
+        return $generator;
+    }
+
+    public static function setLoader(Loader $loader)
+    {
+        self::$_loader = $loader;
+    }
+
+    public static function getLoader()
+    {
+        if (self::$_loader) {
+            return self::$_loader;
+        }
+
+        self::$_loader = self::getDefaultLoader();
+
+        return self::$_loader;
+    }
+
+    public static function getDefaultLoader()
+    {
+        return new EvalLoader();
+    }
+
 
     /**
      * Set the container
@@ -280,7 +373,10 @@ class Mockery
                 } elseif (is_int($arg) || is_float($arg)) {
                     $parts[] = $arg;
                 } elseif (is_array($arg)) {
-                    $parts[] = 'Array';
+                    $arg = preg_replace("{\s}", '', var_export($arg, true));
+                    $parts[] = (strlen($arg) > 1000) ? substr($arg, 0, 1000).'...)' : $arg;
+                } elseif (is_bool($arg)) {
+                    $parts[] = $arg ? 'true' : 'false';
                 } else {
                     $parts[] = '"' . (string) $arg . '"';
                 }
@@ -334,6 +430,7 @@ class Mockery
         foreach ($reflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $publicProperty)
         {
             if ($publicProperty->isStatic()) continue;
+            $name = $publicProperty->getName();
             $properties[$name] = self::_cleanupNesting($object->$name, $nesting);
         }
 
@@ -344,7 +441,11 @@ class Mockery
             $name = $publicMethod->getName();
             $numberOfParameters = $publicMethod->getNumberOfParameters();
             if ((substr($name, 0, 3) === 'get' || substr($name, 0, 2) === 'is') && $numberOfParameters == 0) {
-                $getters[$name] = self::_cleanupNesting($object->$name(), $nesting);
+                try {
+                    $getters[$name] = self::_cleanupNesting($object->$name(), $nesting);
+                } catch(\Exception $e) {
+                    $getters[$name] = '!! ' . get_class($e) . ': ' . $e->getMessage() . ' !!';
+                }
             }
         }
         return array('class' => get_class($object), 'properties' => $properties, 'getters' => $getters);
@@ -415,7 +516,7 @@ class Mockery
         $names = explode('->', $arg);
         reset($names);
         if (!\Mockery::getConfiguration()->mockingNonExistentMethodsAllowed()
-        && method_exists($mock, "mockery_getMockableMethods")
+        && !$mock->mockery_isAnonymous()
         && !in_array(current($names), $mock->mockery_getMockableMethods())) {
             throw new \Mockery\Exception(
                 'Mockery\'s configuration currently forbids mocking the method '

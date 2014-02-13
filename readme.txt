@@ -3,8 +3,8 @@ Contributors: daigo75
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ
 Tags: woocommerce, skrill
 Requires at least: 3.4
-Tested up to: 3.7
-Stable tag: 1.0.4.131205
+Tested up to: 3.8.1
+Stable tag: 1.0.5.130214
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ The plugin will add a new payment gateway called Skrill (Moneybookers), which wi
 
 
 ##Requirements
-* WordPress 3.4+ (plugin has been tested up to WordPress 3.7)
+* WordPress 3.4+ (plugin has been tested up to WordPress 3.8.1)
 * PHP 5.3+
 * WooCommerce 1.6/2.0.x (plugin has been tested up to WooCommerce 2.0.20)
 
@@ -47,9 +47,11 @@ This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlighten
 
 == Changelog ==
 
+= 1.0.5.130214 =
+* Updated requirements.
+
 = 1.0.4.131205 =
 * Added missing Composer dependencies.
-
 
 = 1.0.3.131201 =
 * Fixed checks related to debug mode.

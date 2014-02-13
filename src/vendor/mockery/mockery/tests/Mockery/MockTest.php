@@ -26,9 +26,9 @@ class Mockery_MockTest extends PHPUnit_Framework_TestCase
 
     public function setup ()
     {
-        $this->container = new \Mockery\Container;
+        $this->container = new \Mockery\Container(\Mockery::getDefaultGenerator(), \Mockery::getDefaultLoader());
     }
-    
+
     public function teardown()
     {
         $this->container->mockery_close();

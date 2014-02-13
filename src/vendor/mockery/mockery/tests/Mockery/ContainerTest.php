@@ -24,7 +24,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
     public function setup ()
     {
-        $this->container = new \Mockery\Container;
+        $this->container = new \Mockery\Container(\Mockery::getDefaultGenerator(), new \Mockery\Loader\EvalLoader());
     }
 
     public function teardown()
@@ -57,6 +57,19 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $m->bar());
     }
 
+    public function testSimpleMockWithArrayDefsCanBeOverridden()
+    {
+        // eg. In shared test setup
+        $m = $this->container->mock(array('foo' => 1, 'bar' => 2));
+
+        // and then overridden in one test
+        $m->shouldReceive('foo')->with('baz')->once()->andReturn(2);
+        $m->shouldReceive('bar')->with('baz')->once()->andReturn(42);
+
+        $this->assertEquals(2, $m->foo('baz'));
+        $this->assertEquals(42, $m->bar('baz'));
+    }
+
     public function testNamedMockWithArrayDefs()
     {
         $m = $this->container->mock('Foo', array('foo'=>1,'bar'=>2));
@@ -66,6 +79,37 @@ class ContainerTest extends PHPUnit_Framework_TestCase
             $m->f();
         } catch (BadMethodCallException $e) {
             $this->assertTrue((bool) preg_match("/Foo/", $e->getMessage()));
+        }
+    }
+
+    public function testNamedMockWithArrayDefsCanBeOverridden()
+    {
+        // eg. In shared test setup
+        $m = $this->container->mock('Foo', array('foo' => 1));
+
+        // and then overridden in one test
+        $m->shouldReceive('foo')->with('bar')->once()->andReturn(2);
+
+        $this->assertEquals(2, $m->foo('bar'));
+
+        try {
+            $m->f();
+        } catch (BadMethodCallException $e) {
+            $this->assertTrue((bool) preg_match("/Foo/", $e->getMessage()));
+        }
+    }
+
+    public function testNamedMockMultipleInterfaces()
+    {
+        $m = $this->container->mock('stdClass, ArrayAccess, Countable', array('foo'=>1,'bar'=>2));
+        $this->assertEquals(1, $m->foo());
+        $this->assertEquals(2, $m->bar());
+        try {
+            $m->f();
+        } catch (BadMethodCallException $e) {
+            $this->assertTrue((bool) preg_match("/stdClass/", $e->getMessage()));
+            $this->assertTrue((bool) preg_match("/ArrayAccess/", $e->getMessage()));
+            $this->assertTrue((bool) preg_match("/Countable/", $e->getMessage()));
         }
     }
 
@@ -242,7 +286,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
     public function testSplfileinfoClassMockPassesUserExpectations()
     {
-        $file = $this->container->mock('SplFileInfo[getFilename,getPathname,getExtension,getMTime]');
+        $file = $this->container->mock('SplFileInfo[getFilename,getPathname,getExtension,getMTime]', array(__FILE__));
         $file->shouldReceive('getFilename')->once()->andReturn('foo');
         $file->shouldReceive('getPathname')->once()->andReturn('path/to/foo');
         $file->shouldReceive('getExtension')->once()->andReturn('css');
@@ -504,7 +548,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
      * @expectedException BadMethodCallException
      */
     public function testMockedStaticThrowsExceptionWhenMethodDoesNotExist(){
-    	\Mockery::setContainer($this->container);
+        \Mockery::setContainer($this->container);
         $m = $this->container->mock('alias:MyNamespace\StaticNoMethod');
         $this->assertEquals('bar', \MyNameSpace\StaticNoMethod::staticFoo());
         \Mockery::resetContainer();
@@ -642,13 +686,45 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $b);
     }
 
+    /**
+     * Meant to test the same logic as
+     * testCanOverrideExpectedParametersOfExtensionPHPClassesToPreserveRefs,
+     * but:
+     * - doesn't require an extension
+     * - isn't actually known to be used
+     */
     public function testCanOverrideExpectedParametersOfInternalPHPClassesToPreserveRefs()
+    {
+        \Mockery::getConfiguration()->setInternalClassMethodParamMap(
+            'DateTime', 'modify', array('&$string')
+        );
+        // @ used to avoid E_STRICT for incompatible signature
+        @$m = $this->container->mock('DateTime');
+        $this->assertInstanceOf("Mockery\MockInterface", $m, "Mocking failed, remove @ error suppresion to debug");
+        $m->shouldReceive('modify')->with(
+            \Mockery::on(function(&$string) {$string = 'foo'; return true;})
+        );
+        $data ='bar';
+        $m->modify($data);
+        $this->assertEquals('foo', $data);
+        $this->container->mockery_verify();
+        \Mockery::resetContainer();
+        \Mockery::getConfiguration()->resetInternalClassMethodParamMaps();
+    }
+
+    /**
+     * Real world version of
+     * testCanOverrideExpectedParametersOfInternalPHPClassesToPreserveRefs
+     */
+    public function testCanOverrideExpectedParametersOfExtensionPHPClassesToPreserveRefs()
     {
         if (!class_exists('MongoCollection', false)) $this->markTestSkipped('ext/mongo not installed');
         \Mockery::getConfiguration()->setInternalClassMethodParamMap(
             'MongoCollection', 'insert', array('&$data', '$options')
         );
-        $m = $this->container->mock('MongoCollection');
+        // @ used to avoid E_STRICT for incompatible signature
+        @$m = $this->container->mock('MongoCollection');
+        $this->assertInstanceOf("Mockery\MockInterface", $m, "Mocking failed, remove @ error suppresion to debug");
         $m->shouldReceive('insert')->with(
             \Mockery::on(function(&$data) {$data['_id'] = 123; return true;}),
             \Mockery::type('array')
@@ -659,6 +735,33 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(123, $data['_id']);
         $this->container->mockery_verify();
         \Mockery::resetContainer();
+        \Mockery::getConfiguration()->resetInternalClassMethodParamMaps();
+    }
+
+    public function testCanCreateNonOverridenInstanceOfPreviouslyOverridenInternalClasses()
+    {
+        \Mockery::getConfiguration()->setInternalClassMethodParamMap(
+            'DateTime', 'modify', array('&$string')
+        );
+        // @ used to avoid E_STRICT for incompatible signature
+        @$m = $this->container->mock('DateTime');
+        $this->assertInstanceOf("Mockery\MockInterface", $m, "Mocking failed, remove @ error suppresion to debug");
+        $rc = new ReflectionClass($m);
+        $rm = $rc->getMethod('modify');
+        $params = $rm->getParameters();
+        $this->assertTrue($params[0]->isPassedByReference());
+
+        \Mockery::getConfiguration()->resetInternalClassMethodParamMaps();
+
+        $m = $this->container->mock('DateTime');
+        $this->assertInstanceOf("Mockery\MockInterface", $m, "Mocking failed");
+        $rc = new ReflectionClass($m);
+        $rm = $rc->getMethod('modify');
+        $params = $rm->getParameters();
+        $this->assertFalse($params[0]->isPassedByReference());
+
+        \Mockery::resetContainer();
+        \Mockery::getConfiguration()->resetInternalClassMethodParamMaps();
     }
 
     /**
@@ -741,9 +844,9 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
     public function testMockCallableTypeHint()
     {
-		if(PHP_VERSION_ID >= 50400) {
-        	$this->container->mock('MockeryTest_MockCallableTypeHint');
-		}
+        if(PHP_VERSION_ID >= 50400) {
+            $this->container->mock('MockeryTest_MockCallableTypeHint');
+        }
     }
 
     public function testCanMockClassWithReservedWordMethod()
@@ -819,9 +922,34 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Traversable', $mock);
     }
 
+    public function testInterfacesCanHaveAssertions()
+    {
+        \Mockery::setContainer($this->container);
+        $m = $this->container->mock('stdClass, ArrayAccess, Countable, Traversable');
+        $m->shouldReceive('foo')->once();
+        $m->foo();
+        $this->container->mockery_verify();
+        \Mockery::resetContainer();
+    }
+
     public function testMockingIteratorAggregateDoesNotImplementIterator()
     {
         $mock = $this->container->mock('MockeryTest_ImplementsIteratorAggregate');
+        $this->assertInstanceOf('IteratorAggregate', $mock);
+        $this->assertInstanceOf('Traversable', $mock);
+        $this->assertNotInstanceOf('Iterator', $mock);
+    }
+
+    public function testMockingInterfaceThatExtendsIteratorDoesNotImplementIterator()
+    {
+        $mock = $this->container->mock('MockeryTest_InterfaceThatExtendsIterator');
+        $this->assertInstanceOf('Iterator', $mock);
+        $this->assertInstanceOf('Traversable', $mock);
+    }
+
+    public function testMockingInterfaceThatExtendsIteratorAggregateDoesNotImplementIterator()
+    {
+        $mock = $this->container->mock('MockeryTest_InterfaceThatExtendsIteratorAggregate');
         $this->assertInstanceOf('IteratorAggregate', $mock);
         $this->assertInstanceOf('Traversable', $mock);
         $this->assertNotInstanceOf('Iterator', $mock);
@@ -861,14 +989,88 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
     public function testMockeryShouldDistinguishBetweenConstructorParamsAndClosures()
     {
+        $obj = new MockeryTestFoo();
         $mock = $this->container->mock('MockeryTest_ClassMultipleConstructorParams[dave]',
-            array(new stdClass, 'bar'));
+            array( &$obj, 'foo' ));
     }
 
     /** @group nette */
     public function testMockeryShouldNotMockCallstaticMagicMethod()
     {
         $mock = $this->container->mock('MockeryTest_CallStatic');
+    }
+
+    /**
+     * @issue issue/139
+     */
+    public function testCanMockClassWithOldStyleConstructorAndArguments()
+    {
+        $mock = $this->container->mock('MockeryTest_OldStyleConstructor');
+    }
+
+    /** @group issue/144 */
+    public function testMockeryShouldInterpretEmptyArrayAsConstructorArgs()
+    {
+        $mock = $this->container->mock("EmptyConstructorTest", array());
+        $this->assertSame(0, $mock->numberOfConstructorArgs);
+    }
+
+    /** @group issue/144 */
+    public function testMockeryShouldCallConstructorByDefaultWhenRequestingPartials()
+    {
+        $mock = $this->container->mock("EmptyConstructorTest[foo]");
+        $this->assertSame(0, $mock->numberOfConstructorArgs);
+    }
+
+    /** @group issue/158 */
+    public function testMockeryShouldRespectInterfaceWithMethodParamSelf()
+    {
+        $this->container->mock('MockeryTest_InterfaceWithMethodParamSelf');
+    }
+
+    /** @group issue/162 */
+    public function testMockeryDoesntTryAndMockLowercaseToString()
+    {
+        $this->container->mock('MockeryTest_Lowercase_ToString');
+    }
+
+    /** @group issue/175 */
+    public function testExistingStaticMethodMocking()
+    {
+        \Mockery::setContainer($this->container);
+        $mock = $this->container->mock('MockeryTest_PartialStatic[mockMe]');
+
+        $mock->shouldReceive('mockMe')->with(5)->andReturn(10);
+
+        $this->assertEquals(10, $mock::mockMe(5));
+        $this->assertEquals(3, $mock::keepMe(3));
+    }
+
+    /**
+     * @group issue/154
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage protectedMethod() cannot be mocked as it a protected method and mocking protected methods is not allowed for this mock
+     */
+    public function testShouldThrowIfAttemptingToStubProtectedMethod()
+    {
+        $mock = $this->container->mock('MockeryTest_WithProtectedAndPrivate');
+        $mock->shouldReceive("protectedMethod");
+    }
+
+    /**
+     * @group issue/154
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage privateMethod() cannot be mocked as it is a private method
+     */
+    public function testShouldThrowIfAttemptingToStubPrivateMethod()
+    {
+        $mock = $this->container->mock('MockeryTest_WithProtectedAndPrivate');
+        $mock->shouldReceive("privateMethod");
+    }
+
+    public function testWakeupMagicIsNotMockedToAllowSerialisationInstanceHack()
+    {
+        $mock = $this->container->mock('DateTime');
     }
 }
 
@@ -960,6 +1162,12 @@ interface MockeryTest_InterfaceWithPublicStaticMethod
 abstract class MockeryTest_AbstractWithAbstractMethod
 {
     abstract protected function set();
+}
+
+class MockeryTest_WithProtectedAndPrivate
+{
+    protected function protectedMethod() {}
+    private function privateMethod() {}
 }
 
 class MockeryTest_ClassConstructor {
@@ -1084,4 +1292,49 @@ class MockeryTest_ImplementsIterator implements \Iterator {
     public function key(){}
     public function next(){}
     public function valid(){}
+}
+
+class MockeryTest_OldStyleConstructor {
+    public function MockeryTest_OldStyleConstructor($arg) {}
+}
+
+class EmptyConstructorTest {
+    public $numberOfConstructorArgs;
+
+    public function __construct()
+    {
+        $this->numberOfConstructorArgs = count(func_get_args());
+    }
+
+    public function foo() {
+
+    }
+}
+
+interface MockeryTest_InterfaceWithMethodParamSelf {
+    public function foo(self $bar);
+}
+
+class MockeryTest_Lowercase_ToString {
+    public function __tostring() { }
+}
+
+class MockeryTest_PartialStatic {
+    public static function mockMe($a)
+    {
+        return $a;
+    }
+
+    public static function keepMe($b)
+    {
+        return $b;
+    }
+}
+
+interface MockeryTest_InterfaceThatExtendsIterator extends \Iterator {
+    public function foo();
+}
+
+interface MockeryTest_InterfaceThatExtendsIteratorAggregate extends \IteratorAggregate {
+    public function foo();
 }
