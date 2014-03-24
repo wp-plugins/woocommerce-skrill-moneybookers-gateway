@@ -17,13 +17,13 @@ The plugin will add a new payment gateway called Skrill (Moneybookers), which wi
 ##Requirements
 * WordPress 3.4+ (plugin has been tested up to WordPress 3.8.1)
 * PHP 5.3+
-* WooCommerce 1.6/2.0.x (plugin has been tested up to WooCommerce 2.0.20)
+* WooCommerce 2.0.x/2.1x (plugin has been tested up to WooCommerce 2.1.3)
 
 ## Current limitations
 * Plugin does not support pre-authorisation or subscriptions.
 
 ## Notes
-* The plugin is provided free of charge, and it's not covered by free spport. Should you have any questions about this product, please use the [product support section on this site](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway). We will deal with each enquiry as soon as possible.
+* The plugin is provided free of charge, and it's not covered by free support. Should you have any questions about this product, please use the [product support section on this site](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway). We will deal with each enquiry as soon as possible (usually within a few days
 
 
 == Installation ==
@@ -46,6 +46,9 @@ If you wish to get more details about Skrill, please refer to [Skrill website](h
 This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlightenment.net/shop/currency-switcher-woocommerce/). If you are using the Currency Switcher, and you find out that the Skrill gateway is not appearing on the checkout page, please go to ```WooCommerce > Currency Switcher Options > Payment Gateways``` and make sure that **Skrill** is listed amongst the **Enabled Gateways**.
 
 == Changelog ==
+
+= 1.0.7.140324 =
+* Updated base classes.
 
 = 1.0.6.140219 =
 * Fixed dependencies.

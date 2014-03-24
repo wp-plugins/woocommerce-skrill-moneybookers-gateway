@@ -75,6 +75,20 @@ class WC_Aelia_Settings {
 	}
 
 	/**
+	 * Returns current plugin settings, or the value a specific setting.
+	 *
+	 * @param string key If specified, method will return only the setting identified
+	 * by the key.
+	 * @param mixed default The default value to return if the setting requested
+	 * via the "key" argument is not found.
+	 * @return array|mixed The plugin settings, or the value of the specified
+	 * setting.
+	 */
+	public function get($key = null, $default = null) {
+		return $this->current_settings($key, $default);
+	}
+
+	/**
 	 * Loads plugin settings from WP database.
 	 *
 	 * @return array An array containing the plugin settings.

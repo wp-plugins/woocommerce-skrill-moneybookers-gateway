@@ -152,6 +152,44 @@ class WC_Aelia_Settings_Renderer {
 	}
 
 	/**
+	 * Returns the title for the menu item that will bring to the plugin's
+	 * settings page.
+	 *
+	 * @return string
+	 */
+	protected function menu_title() {
+		return __('Template plugin', $this->_textdomain);
+	}
+
+	/**
+	 * Returns the slug for the menu item that will bring to the plugin's
+	 * settings page.
+	 *
+	 * @return string
+	 */
+	protected function menu_slug() {
+		return 'template-plugin';
+	}
+
+	/**
+	 * Returns the title for the settings page.
+	 *
+	 * @return string
+	 */
+	protected function page_title() {
+		return __('Template plugin settings', $this->_textdomain);
+	}
+
+	/**
+	 * Returns the description for the settings page.
+	 *
+	 * @return string
+	 */
+	protected function page_description() {
+		return __('Sample page description', $this->_textdomain);
+	}
+
+	/**
 	 * Renders all settings sections added to a particular settings page. This
 	 * method is an almost exact clone of global do_settings_sections(), the main
 	 * difference is that each section is wrapped in its own <div>.
@@ -222,17 +260,49 @@ class WC_Aelia_Settings_Renderer {
 	}
 
 	/**
+	 * Renders the buttons at the bottom of the settings page.
+	 */
+	protected function render_buttons() {
+		submit_button(__('Save Changes', $this->_textdomain),
+							'primary',
+							'submit',
+							false);
+	}
+
+	/**
 	 * Renders the Options page for the plugin.
 	 */
 	public function render_options_page() {
-		// To be implemented by descendant class
+		echo '<div class="wrap">';
+		echo '<div class="icon32" id="icon-options-general"></div>';
+		echo '<h2>' . $this->page_title() . '</h2>';
+		echo '<p>' . $this->page_description() . '</p>';
+
+		settings_errors();
+		echo '<form id="' . $this->_settings_key . '_form" method="post" action="options.php">';
+		settings_fields($this->_settings_key);
+		//do_settings_sections($this->_settings_key);
+		$this->render_settings_sections($this->_settings_key);
+		echo '<div class="buttons">';
+		$this->render_buttons();
+		echo '</div>';
+		echo '</form>';
 	}
 
 	/**
 	 * Adds a link to Settings Page in WooCommerce Admin menu.
 	 */
 	public function add_settings_page() {
-		// To be implemented by descendant class
+		$settings_page = add_submenu_page(
+			'woocommerce',
+	    $this->page_title(),
+	    $this->menu_title(),
+			'manage_options',
+			$this->menu_slug(),
+			array($this, 'render_options_page')
+		);
+
+		add_action('load-' . $settings_page, array($this, 'options_page_load'));
 	}
 
 	/**
@@ -388,6 +458,29 @@ class WC_Aelia_Settings_Renderer {
 	}
 
 	/**
+	 * Build the HTML to represent a <textarea> element.
+	 *
+	 * @param string field_id The ID of the field.
+	 * @param string value The field value.
+	 * @param array attribues Additional field attributes.
+	 * @param string field_name The name of the field. If unspecified, the field
+	 * ID will be taken.
+	 * @return string The HTML representation of the field.
+	 */
+	protected function get_textarea_html($field_id, $value, $attributes, $field_name = null) {
+		$field_name = !empty($field_name) ? $field_name : $field_id;
+
+		$html =
+			'<textarea ' .
+			'id="' . $field_id . '" ' .
+			'name="' . $field_name . '" ' .
+			$this->attributes_to_string($attributes) .
+			'>' . $value . '</textarea>';
+
+		return $html;
+	}
+
+	/**
 	 * Renders a hidden field.
 	 *
 	 * @param array args An array of arguments passed by add_settings_field().
@@ -404,7 +497,8 @@ class WC_Aelia_Settings_Renderer {
 	}
 
 	/**
-	 * Renders a text box.
+	 * Renders a text box (input or textarea). To render a textarea, pass an
+	 * attribute named "multiline" set to true.
 	 *
 	 * @param array args An array of arguments passed by add_settings_field().
 	 * @see add_settings_field().
@@ -416,7 +510,14 @@ class WC_Aelia_Settings_Renderer {
 		$attributes = get_value('attributes', $args, array());
 		$value = get_value('value', $args, '');
 
-		echo $this->get_input_html('text', $field_id, $value, $attributes, $field_name);
+		$multiline = get_value('multiline', $attributes);
+
+		if($multiline) {
+			echo $this->get_textarea_html($field_id, $value, $attributes, $field_name);
+		}
+		else {
+			echo $this->get_input_html('text', $field_id, $value, $attributes, $field_name);
+		}
 	}
 
 	/**

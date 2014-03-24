@@ -135,33 +135,42 @@ class WC_Aelia_Install {
 	}
 
 	/**
+	 * Compares the version extracted from two update methods to sort them.
+	 *
+	 * @param string a The version of first method.
+	 * @param string b The version of second method.
+	 * @return int
+	 *
+	 * @see version_compare().
+	 * @see uksort().
+	 */
+	protected function sort_update_methods($a, $b) {
+		return version_compare($a, $b);
+	}
+
+	/**
 	 * Returns a list of the methods that will perform the updates.
 	 *
 	 * @param string current_version Current version of the plugin. This will
 	 * determine which update methods still have to be executed.
 	 * @return array
 	 */
-	private function get_update_methods($current_version) {
+	protected function get_update_methods($current_version) {
 		if(empty($current_version)) {
 			$current_version = '0';
-		}
-		else {
-			// Strip all special characters so that the version can be compared with
-			// update methods
-			$current_version = $this->get_alphanum_version($current_version);
 		}
 		$update_methods = array();
 
 		$class_methods = get_class_methods($this);
 		foreach($class_methods as $method) {
 			if(stripos($method, self::UPDATE_METHOD_PREFIX) === 0) {
-				$version = str_ireplace(self::UPDATE_METHOD_PREFIX, '', $method);
-				if($version > $current_version) {
-					$update_methods[$version] = $method;
+				$method_version = str_ireplace(self::UPDATE_METHOD_PREFIX, '', $method);
+				if(version_compare($method_version, $current_version, '>')) {
+					$update_methods[$method_version] = $method;
 				}
 			}
 		}
-		ksort($update_methods);
+		uksort($update_methods, array($this, 'sort_update_methods'));
 		return $update_methods;
 	}
 
@@ -213,7 +222,7 @@ class WC_Aelia_Install {
 	 */
 	public function update($plugin_id, $new_version) {
 		$current_version = get_option($plugin_id);
-		if($current_version >= $new_version) {
+		if(version_compare($current_version, $new_version, '>=')) {
 			return true;
 		}
 
@@ -238,6 +247,7 @@ class WC_Aelia_Install {
 																			'skipped. Please report this issue to Support'),
 																	 get_class($this),
 																	 $method));
+				continue;
 			}
 			try {
 				$this->add_message(E_USER_NOTICE,
@@ -250,13 +260,13 @@ class WC_Aelia_Install {
 				}
 			}
 			catch(Exception $e) {
-				$this->add_error(E_USER_WARNING,
-												 sprintf(__('Update method "%s::%s() raised exception "%s". Update halted. ' .
-																		'Please contact Support and provide the error details ' .
-																		'that you will find below.'),
-																 $e->getMessage(),
-																 get_class($this),
-																 $method));
+				$this->add_message(E_USER_WARNING,
+													 sprintf(__('Update method "%s::%s() raised exception "%s". Update halted. ' .
+																			'Please contact Support and provide the error details ' .
+																			'that you will find below.'),
+																	 $e->getMessage(),
+																	 get_class($this),
+																	 $method));
 				$result = false;
 			}
 		}

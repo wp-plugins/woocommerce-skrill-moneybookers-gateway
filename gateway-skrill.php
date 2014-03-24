@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Skrill Gateway
 Plugin URI: http://dev.pathtoenlightenment.net/shop
 Description: A payment gateway for Skrill (https://www.skrill.com/). A Skrill merchant account is required for this gateway to work properly.
-Version: 1.0.6.140219
+Version: 1.0.7.140324
 Author: Diego Zanella
 Author URI: http://dev.pathtoenlightenment.net
 License: GPLv3

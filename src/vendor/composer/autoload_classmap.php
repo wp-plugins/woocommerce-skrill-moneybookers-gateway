@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Aelia_NotImplementedException' => $baseDir . '/lib/classes/base/exceptions/wc-aelia-exceptions.php',
+    'Aelia_SessionManager' => $baseDir . '/lib/classes/base/session/aelia-session-manager.php',
     'IWC_Aelia_Plugin' => $baseDir . '/lib/classes/base/plugin/wc-aelia-plugin.php',
     'WC_Aelia_Install' => $baseDir . '/lib/classes/base/install/wc-aelia-install.php',
     'WC_Aelia_Message' => $baseDir . '/lib/classes/base/install/wc-aelia-message.php',
