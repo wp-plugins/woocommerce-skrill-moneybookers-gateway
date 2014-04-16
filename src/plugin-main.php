@@ -11,7 +11,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
  */
 class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
 	// @var string The plugin version
-	public static $version = '1.0.7.140324';
+	public static $version = '1.0.8.140416';
 
 	// @var string The plugin instance key, used to retrieve the plugin instance
 	public static $plugin_slug = 'wc-skrill-gateway';
@@ -71,8 +71,8 @@ class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
 	 * @param WC_Aelia_Messages messages_controller The controller that will handle
 	 * the messages produced by the plugin.
 	 */
-	public function __construct(WC_Aelia_Settings $settings_controller,
-															WC_Aelia_Messages $messages_controller) {
+	public function __construct($settings_controller,
+															$messages_controller) {
 		parent::__construct($settings_controller, $messages_controller);
 	}
 
@@ -84,13 +84,13 @@ class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
 	public static function factory() {
 		$settings_key = self::$plugin_slug;
 
-		$settings_page_renderer = new WC_Aelia_Settings_Renderer();
-		$settings_controller = new WC_Aelia_Settings($settings_key,
-																								 self::$text_domain,
-																								 $settings_page_renderer);
+		//$settings_page_renderer = new WC_Aelia_Settings_Renderer();
+		//$settings_controller = new WC_Aelia_Settings($settings_key,
+		//																						 self::$text_domain,
+		//																						 $settings_page_renderer);
 		$messages_controller = new WC_Aelia_Messages();
 
-		$plugin_instance = new WC_Skrill_Gateway_Plugin($settings_controller, $messages_controller);
+		$plugin_instance = new self(null, $messages_controller);
 		return $plugin_instance;
 	}
 }

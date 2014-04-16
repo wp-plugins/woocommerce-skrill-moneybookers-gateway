@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.0.8.140416
+* Removed code that created an unused entry in WooCommerce menu.
+
 ####1.0.7.140324
 * Updated base classes.
 

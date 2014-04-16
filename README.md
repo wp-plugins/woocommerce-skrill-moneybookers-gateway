@@ -14,7 +14,7 @@ Should you have any questions about this product, please have a look at the [Kno
 ##Requirements
 * WordPress 3.4+ (plugin has been tested up to WordPress 3.8.1)
 * PHP 5.3+
-* WooCommerce 2.0.x/2.1.x (plugin has been tested up to WooCommerce 2.1.3)
+* WooCommerce 2.0.x/2.1.x (plugin has been tested up to WooCommerce 2.1.7)
 
 Installation
 ---
