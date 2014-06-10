@@ -48,6 +48,9 @@ This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlighten
 
 == Changelog ==
 
+= 1.2.5.140610 =
+* Removed unneeded file.
+
 = 1.2.4.140610 =
 * Altered loading of main plugin file to use location of loader file.
 

@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.5.140610
+* Removed unneeded file.
+
 ####1.2.4.140610
 * Altered loading of main plugin file to use location of loader file.
 
