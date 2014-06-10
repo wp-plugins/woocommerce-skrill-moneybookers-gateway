@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.4.140610
+* Altered loading of main plugin file to use location of loader file.
+
 ####1.2.3.140610
 * Fixed dependency issue for WordPress repository.
 

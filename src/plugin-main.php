@@ -18,7 +18,7 @@ use \WC_Gateway_Skrill;
  */
 class WC_Skrill_Gateway_Plugin extends Aelia_Plugin {
 	// @var string The plugin version
-	public static $version = '1.2.3.140610';
+	public static $version = '1.2.4.140610';
 
 	public static $plugin_slug = Definitions::PLUGIN_SLUG;
 	public static $text_domain = Definitions::TEXT_DOMAIN;
