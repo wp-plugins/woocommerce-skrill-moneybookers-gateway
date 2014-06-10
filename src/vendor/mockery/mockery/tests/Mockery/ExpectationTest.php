@@ -15,7 +15,7 @@
  * @category   Mockery
  * @package    Mockery
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
+ * @copyright  Copyright (c) 2010-2014 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mockery/blob/master/LICENSE New BSD License
  */
 
@@ -183,6 +183,39 @@ class ExpectationTest extends PHPUnit_Framework_TestCase
         $this->mock->foo();
     }
 
+    public function testAndThrowExceptions()
+    {   
+        $this->mock->shouldReceive('foo')->andThrowExceptions(array(
+            new OutOfBoundsException,
+            new InvalidArgumentException,
+        ));
+
+        try {
+            $this->mock->foo();
+            throw new Exception("Expected OutOfBoundsException, non thrown");
+        } catch (\Exception $e) {
+            $this->assertInstanceOf("OutOfBoundsException", $e, "Wrong or no exception thrown: {$e->getMessage()}");
+        }
+
+        try {
+            $this->mock->foo();
+            throw new Exception("Expected InvalidArgumentException, non thrown");
+        } catch (\Exception $e) {
+            $this->assertInstanceOf("InvalidArgumentException", $e, "Wrong or no exception thrown: {$e->getMessage()}");
+        }
+    }
+
+    /**
+     * @expectedException Mockery\Exception
+     * @expectedExceptionMessage You must pass an array of exception objects to andThrowExceptions
+     */
+    public function testAndThrowExceptionsCatchNonExceptionArgument()
+    {   
+        $this->mock
+            ->shouldReceive('foo')
+            ->andThrowExceptions(array('NotAnException'));
+    }
+
     public function testMultipleExpectationsWithReturns()
     {
         $this->mock->shouldReceive('foo')->with(1)->andReturn(10);
@@ -210,6 +243,24 @@ class ExpectationTest extends PHPUnit_Framework_TestCase
     {
         $this->mock->shouldReceive('foo')->withArgs(array(1, 2));
         $this->mock->foo(1, 2);
+    }
+
+    /**
+     * @expectedException \Mockery\Exception
+     */
+    public function testExpectsArgumentsArrayThrowsExceptionIfPassedEmptyArray()
+    {
+        $this->mock->shouldReceive('foo')->withArgs(array());
+        $this->mock->foo(1, 2);
+    }
+
+    /**
+     * @expectedException \Mockery\Exception
+     */
+    public function testExpectsArgumentsArrayThrowsExceptionIfNoArgumentsPassed()
+    {
+        $this->mock->shouldReceive('foo')->with();
+        $this->mock->foo(1);
     }
 
     /**
@@ -1487,6 +1538,18 @@ class ExpectationTest extends PHPUnit_Framework_TestCase
         $string = "Mock: {$this->mock}";
     }
 
+    public function testShouldIgnoreMissingDefaultReturnValue() {
+        $this->mock->shouldIgnoreMissing(1);
+        $this->assertEquals(1,$this->mock->a());
+    }
+
+    /** @issue #253 */
+    public function testShouldIgnoreMissingDefaultSelfAndReturnsSelf() 
+    {
+        $this->mock->shouldIgnoreMissing($this->container->self());
+        $this->assertSame($this->mock, $this->mock->a()->b());
+    }
+
     public function testToStringMagicMethodCanBeMocked()
     {
         $this->mock->shouldReceive("__toString")->andReturn('dave');
@@ -1700,7 +1763,7 @@ class ExpectationTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error_Warning
      * @runInSeparateProcess
-    */
+     */
     public function testPregMatchThrowsDelimiterWarningWithXdebugScreamTurnedOn()
     {
         if (!extension_loaded('xdebug')) {
@@ -1751,6 +1814,12 @@ class ExpectationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $mock->foo("qux"));
 
         $this->container->mockery_verify();
+    }
+
+    public function testCanReturnSelf()
+    {
+        $this->mock->shouldReceive("foo")->andReturnSelf();
+        $this->assertSame($this->mock, $this->mock->foo());
     }
 }
 
