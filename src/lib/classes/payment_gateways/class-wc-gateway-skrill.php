@@ -4,6 +4,8 @@ if(class_exists('WC_Gateway_Skrill')) {
 	return;
 }
 
+use Aelia\WC\SkrillGateway\WC_Skrill_Gateway_Plugin;
+
 /**
  * Class to implement the Skrill payment system.
  */
@@ -196,11 +198,12 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 
 		$this->id = 'skrill';
 		$this->method_title = __('Skrill (Moneybookers)', $this->text_domain);
-		$this->method_description = __('Allows your customers to pay through Skrill (Moneybookers) gateway. ' .
-																	 'This plugins has been developed by <a href="http://dev.pathtoenlightenment.net">Aelia/dev.p2e.net</a>. If you find it ' .
-																	 'useful, and would like to support its development, please feel free to ' .
-																	 '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ">'.
-																	 'make a donation</a>. Thanks.', $this->text_domain);
+		$this->method_description =
+			__('Allows your customers to pay through Skrill (Moneybookers) gateway. ' .
+				 'This plugin has been developed by <a href="http://dev.pathtoenlightenment.net">' .
+				 'Aelia/dev.p2e.net</a>. If you find it useful, and would like to support its ' .
+				 'development, please feel free to <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ">'.
+				 'make a donation</a>. Thanks.', $this->text_domain);
 
 		$this->icon = apply_filters('woocommerce_skrill_icon', $this->url('images') . '/skrill.png');
 		$this->has_fields = false;
@@ -673,17 +676,5 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 
 		// Empty cart
 		$this->woocommerce()->cart->empty_cart();
-	}
-
-	public function admin_options() {
-		echo '<div class="donate">';
-		echo '
-			<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ" title="PayPal logo">
-				<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="PayPal - The safer, easier way to pay online!">
-			</a>
-		';
-		echo '</div>';
-
-		parent::admin_options();
 	}
 }

@@ -1,10 +1,10 @@
 === WooCommerce Skrill Gateway Plugin ===
 Contributors: daigo75
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ
-Tags: woocommerce, skrill
-Requires at least: 3.4
-Tested up to: 3.8.1
-Stable tag: 1.0.8.140416
+Tags: woocommerce, skrill, moneybookers
+Requires at least: 3.6
+Tested up to: 3.9.1
+Stable tag: 1.2.2.140610
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,15 +15,16 @@ The plugin will add a new payment gateway called Skrill (Moneybookers), which wi
 
 
 ##Requirements
-* WordPress 3.4+ (plugin has been tested up to WordPress 3.8.1)
+* WordPress 3.6+
 * PHP 5.3+
-* WooCommerce 2.0.x/2.1x (plugin has been tested up to WooCommerce 2.1.7)
+* WooCommerce 2.0.x/2.1x
+* [AFC plugin for WooCommerce](http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip) 1.0.2+.
 
 ## Current limitations
 * Plugin does not support pre-authorisation or subscriptions.
 
 ## Notes
-* The plugin is provided free of charge, and it's not covered by free support. Should you have any questions about this product, please use the [product support section on this site](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway). We will deal with each enquiry as soon as possible (usually within a few days
+* The plugin is provided free of charge, and it's not covered by free support. Should you have any questions about this product, please use the [product support section on this site](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway). We will deal with each enquiry as soon as possible (usually within a few days).
 
 
 == Installation ==
@@ -46,6 +47,13 @@ If you wish to get more details about Skrill, please refer to [Skrill website](h
 This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlightenment.net/shop/currency-switcher-woocommerce/). If you are using the Currency Switcher, and you find out that the Skrill gateway is not appearing on the checkout page, please go to ```WooCommerce > Currency Switcher Options > Payment Gateways``` and make sure that **Skrill** is listed amongst the **Enabled Gateways**.
 
 == Changelog ==
+
+= 1.2.1.140605 =
+* Corrected plugin name and text domain in requirement checking class.
+
+= 1.2.0.140527 =
+* Redesigned plugin to use the Aelia Foundation Classes (AFC) plugin.
+* Removed donation widget, as it was not used anyway.
 
 = 1.0.8.140416 =
 * Removed code that created an unused entry in WooCommerce menu.

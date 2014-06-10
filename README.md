@@ -2,7 +2,7 @@
 
 **Tags**: woocommerce, skrill, skrill connect
 **Requires at least**: 3.4
-**Tested up to**: 3.8.1
+**Tested up to**: 3.9.1
 
 Allows WooCommerce to accept payments using Skrill gateway.
 
@@ -12,9 +12,10 @@ Skrill Gateway for WooCommerce 1.6/2.0 adds support for Skrill, a service from M
 Should you have any questions about this product, please have a look at the [Knowledge Base](https://aelia.freshdesk.com/support/solutions), or feel free to [contact us](http://dev.pathtoenlightenment.net/contact/).
 
 ##Requirements
-* WordPress 3.4+ (plugin has been tested up to WordPress 3.8.1)
+* WordPress 3.6+
 * PHP 5.3+
-* WooCommerce 2.0.x/2.1.x (plugin has been tested up to WooCommerce 2.1.7)
+* WooCommerce 2.0.x/2.1.x
+* [AFC plugin for WooCommerce](http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip) 1.0.2+.
 
 Installation
 ---

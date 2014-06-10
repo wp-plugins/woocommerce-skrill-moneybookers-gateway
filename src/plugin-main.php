@@ -1,21 +1,28 @@
-<?php if(!defined('ABSPATH')) exit; // Exit if accessed directly
+<?php
+namespace Aelia\WC\SkrillGateway;
+if(!defined('ABSPATH')) exit; // Exit if accessed directly
 
 //define('SCRIPT_DEBUG', 1);
 //error_reporting(E_ALL);
 
-// Load Composer autoloader
-require_once(__DIR__ . '/vendor/autoload.php');
+// Load definitions
+require_once('lib/classes/definitions/definitions.php');
+
+use Aelia\WC\Aelia_Plugin;
+use Aelia\WC\Aelia_SessionManager;
+use Aelia\WC\Messages;
+use \WC_Gateway_Skrill;
 
 /**
  * Main plugin class.
  */
-class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
+class WC_Skrill_Gateway_Plugin extends Aelia_Plugin {
 	// @var string The plugin version
-	public static $version = '1.0.8.140416';
+	public static $version = '1.2.2.140610';
 
-	// @var string The plugin instance key, used to retrieve the plugin instance
-	public static $plugin_slug = 'wc-skrill-gateway';
-	public static $text_domain = 'wc-skrill-gateway';
+	public static $plugin_slug = Definitions::PLUGIN_SLUG;
+	public static $text_domain = Definitions::TEXT_DOMAIN;
+	public static $plugin_name = 'Aelia - Skrill Gateway for WooCommerce';
 
 	/**
 	 * Handler of plugins_loaded event.
@@ -66,13 +73,16 @@ class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
 	/**
 	 * Constructor.
 	 *
-	 * @param WC_Aelia_Settings settings_controller The controller that will handle
+	 * @param \Aelia\WC\Settings settings_controller The controller that will handle
 	 * the plugin settings.
-	 * @param WC_Aelia_Messages messages_controller The controller that will handle
+	 * @param \Aelia\WC\Messages messages_controller The controller that will handle
 	 * the messages produced by the plugin.
 	 */
 	public function __construct($settings_controller,
 															$messages_controller) {
+		// Load Composer autoloader
+		require_once(__DIR__ . '/vendor/autoload.php');
+
 		parent::__construct($settings_controller, $messages_controller);
 	}
 
@@ -82,13 +92,10 @@ class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
 	 * @return WC_Skrill_Gateway_Plugin
 	 */
 	public static function factory() {
-		$settings_key = self::$plugin_slug;
+		// Load Composer autoloader
+		require_once(__DIR__ . '/vendor/autoload.php');
 
-		//$settings_page_renderer = new WC_Aelia_Settings_Renderer();
-		//$settings_controller = new WC_Aelia_Settings($settings_key,
-		//																						 self::$text_domain,
-		//																						 $settings_page_renderer);
-		$messages_controller = new WC_Aelia_Messages();
+		$messages_controller = new Messages();
 
 		$plugin_instance = new self(null, $messages_controller);
 		return $plugin_instance;
@@ -96,11 +103,4 @@ class WC_Skrill_Gateway_Plugin extends WC_Aelia_Plugin {
 }
 
 
-if(WC_Skrill_Gateway_Plugin::check_requirements() == true) {
-	// Instantiate plugin and add it to the set of globals
-	$GLOBALS[WC_Skrill_Gateway_Plugin::$plugin_slug] = WC_Skrill_Gateway_Plugin::factory();
-}
-else {
-	// If requirements are missing, display the appropriate notices
-	add_action('admin_notices', array('WC_Skrill_Gateway_Plugin', 'plugin_requirements_notices'));
-}
+$GLOBALS[WC_Skrill_Gateway_Plugin::$plugin_slug] = WC_Skrill_Gateway_Plugin::factory();
