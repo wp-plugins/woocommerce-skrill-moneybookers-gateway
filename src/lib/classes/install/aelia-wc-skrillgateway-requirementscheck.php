@@ -16,7 +16,7 @@ class Aelia_WC_Skrill_Gateway_RequirementsChecks extends Aelia_WC_RequirementsCh
 	protected $required_plugins = array(
 		'WooCommerce' => '2.0.10',
 		'Aelia Foundation Classes for WooCommerce' => array(
-			'version' => '1.0.2.140509',
+			'version' => '1.0.5.140611',
 			'extra_info' => 'You can get the plugin <a href="http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip">from our site</a>, free of charge.',
 		),
 	);

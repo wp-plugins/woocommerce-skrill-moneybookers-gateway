@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.6.140611
+* Improved compatibility with Codestyling Localization plugin.
+
 ####1.2.5.140610
 * Removed unneeded file.
 
