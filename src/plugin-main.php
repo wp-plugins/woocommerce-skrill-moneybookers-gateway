@@ -18,7 +18,7 @@ use \WC_Gateway_Skrill;
  */
 class WC_Skrill_Gateway_Plugin extends Aelia_Plugin {
 	// @var string The plugin version
-	public static $version = '1.2.5.140610';
+	public static $version = '1.2.6.140611';
 
 	public static $plugin_slug = Definitions::PLUGIN_SLUG;
 	public static $text_domain = Definitions::TEXT_DOMAIN;
@@ -29,6 +29,10 @@ class WC_Skrill_Gateway_Plugin extends Aelia_Plugin {
 	 */
 	public function plugins_loaded() {
 		parent::plugins_loaded();
+
+		// The commented line below is needed for Codestyling Localization plugin to
+		// understand what text domain is used by this plugin
+		//load_plugin_textdomain(static::$text_domain, false, $this->path('languages') . '/');
 
 		// Gateway classes have to be loaded manually because, when the WC Api is
 		// invoked, the autoloader might not work properly. This can result in the
