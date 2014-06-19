@@ -1,10 +1,10 @@
 === WooCommerce Skrill Gateway Plugin ===
-Contributors: daigo75
+Contributors: daigo75, jpBenfica
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ
 Tags: woocommerce, skrill, moneybookers
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 1.2.6.140611
+Stable tag: 1.2.8.140619
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,6 +13,9 @@ Allows WooCommerce to accept payments using Skrill gateway.
 == Description ==
 The plugin will add a new payment gateway called Skrill (Moneybookers), which will add support for the Skrill payment gateway. Upon checkout, your customers will be redirected to a secure portal where they can complete their payment. Both standard and Quick Checkout modes are supported. - See more at: http://dev.pathtoenlightenment.net/shop/skrill-gateway-for-woocommerce-2-0-x/
 
+##Included localisations
+* English (GB)
+* Portoguese (PT), courtesy of [jpBenfica](http://www.loja77.com/).
 
 ##Requirements
 * WordPress 3.6+
@@ -21,11 +24,25 @@ The plugin will add a new payment gateway called Skrill (Moneybookers), which wi
 * [AFC plugin for WooCommerce](http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip) 1.0.5.140611+.
 
 ## Current limitations
-* Plugin does not support pre-authorisation or subscriptions.
+* Plugin does not yet support pre-authorisation or subscriptions.
 
 ## Notes
-* The plugin is provided free of charge, and it's not covered by free support. Should you have any questions about this product, please use the [product support section on this site](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway). We will deal with each enquiry as soon as possible (usually within a few days).
+* This plugin is provided as a **free** alternative to the many commercial plugins that add the Skrill payment gateway to WooCommerce, and it's not automatically covered by free support. See FAQ for more details.
 
+== Frequently Asked Questions ==
+
+= What is the support policy for this plugin? =
+
+As indicated in the Description section, we offer this plugin **free of charge**, but we cannot afford to also provide free, direct support for it as we do for our paid products.
+Should you encounter any difficulties with this plugin, and need support, you have several options:
+
+1. **Report the issue in the [Support section, above](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway)**, and we will look into it as soon as possible. This option is **free of charge**, and it's offered on a best effort basis. Please note that we won't be able to offer hands-on troubleshooting on issues related to a specific site, such as incompatibilities with a specific environment or 3rd party plugins.
+2. **[Contact us](http://dev.pathtoenlightenment.net/contact) to request standard paid support**. As part of paid support, you will receive direct assistance from our team, who will troubleshoot your site and help you to make it work smoothly. We can also help you with installation, customisation and development of new features.
+3. **Use one of the available commercial plugins**, such as [the one from PatSaTech](http://bit.ly/1vo1rXV_wp), which comes at a fair price and with free support included.
+
+= I have a question unrelated to support, where can I ask it? =
+
+Should you have any question about this product, please use the [product support section on this site](http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway). We will deal with each enquiry as soon as possible.
 
 == Installation ==
 
@@ -47,6 +64,12 @@ If you wish to get more details about Skrill, please refer to [Skrill website](h
 This plugin is fully compatible with the [Currency Switcher](dev.pathtoenlightenment.net/shop/currency-switcher-woocommerce/). If you are using the Currency Switcher, and you find out that the Skrill gateway is not appearing on the checkout page, please go to ```WooCommerce > Currency Switcher Options > Payment Gateways``` and make sure that **Skrill** is listed amongst the **Enabled Gateways**.
 
 == Changelog ==
+
+= 1.2.8.140619 =
+* Modified loading of Aelia_WC_RequirementsChecks class to work around quirks of Opcode Caching extensions, such as APC and XCache.
+
+= 1.2.7.140614 =
+* Added Portoguese (Portugal) localisation files.
 
 = 1.2.6.140611 =
 * Improved compatibility with Codestyling Localization plugin.
