@@ -1,6 +1,12 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.8.140619
+* Modified loading of Aelia_WC_RequirementsChecks class to work around quirks of Opcode Caching extensions, such as APC and XCache.
+
+####1.2.7.140614
+* Added Portoguese (Portugal) localisation files. Courtesy of [jpBenfica](http://www.loja77.com/).
+
 ####1.2.6.140611
 * Improved compatibility with Codestyling Localization plugin.
 

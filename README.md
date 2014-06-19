@@ -11,6 +11,10 @@ Skrill Gateway for WooCommerce 1.6/2.0 adds support for Skrill, a service from M
 
 Should you have any questions about this product, please have a look at the [Knowledge Base](https://aelia.freshdesk.com/support/solutions), or feel free to [contact us](http://dev.pathtoenlightenment.net/contact/).
 
+##Included localisations
+* English (GB)
+* Portoguese (PT), courtesy of [jpBenfica](http://www.loja77.com/).
+
 ##Requirements
 * WordPress 3.6+
 * PHP 5.3+
