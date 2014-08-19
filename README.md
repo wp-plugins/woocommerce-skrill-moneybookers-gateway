@@ -19,7 +19,7 @@ Should you have any questions about this product, please have a look at the [Kno
 * WordPress 3.6+
 * PHP 5.3+
 * WooCommerce 2.0.x/2.1.x
-* [AFC plugin for WooCommerce](http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip) 1.0.5.140611+.
+* [AFC plugin for WooCommerce](http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip) 1.0.10.140819 or later.
 
 Installation
 ---
