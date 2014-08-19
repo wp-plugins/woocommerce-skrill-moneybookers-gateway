@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.10.140819
+* Updated README files.
+
 ####1.2.9.140819
 * Updated logic used to for requirements checking.
 
