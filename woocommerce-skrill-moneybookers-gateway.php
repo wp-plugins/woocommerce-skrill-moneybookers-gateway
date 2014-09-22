@@ -3,9 +3,9 @@
 Plugin Name: WooCommerce Skrill Gateway
 Plugin URI: http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway
 Description: A payment gateway for Skrill (https://www.skrill.com/). A Skrill merchant account is required for this gateway to work properly.
-Version: 1.2.10.140819
+Version: 1.2.11.140922
 Author: Aelia (Diego Zanella)
-Author URI: http://dev.pathtoenlightenment.net
+Author URI: http://aelia.co
 License: GPLv3
 */
 require_once('src/lib/classes/install/aelia-wc-skrillgateway-requirementscheck.php');

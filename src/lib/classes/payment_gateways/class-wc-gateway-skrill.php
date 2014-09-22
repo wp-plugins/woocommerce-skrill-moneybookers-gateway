@@ -5,6 +5,7 @@ if(class_exists('WC_Gateway_Skrill')) {
 }
 
 use Aelia\WC\SkrillGateway\WC_Skrill_Gateway_Plugin;
+use Aelia\WC\Order as Aelia_Order;
 
 /**
  * Class to implement the Skrill payment system.
@@ -200,7 +201,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 		$this->method_title = __('Skrill (Moneybookers)', $this->text_domain);
 		$this->method_description =
 			__('Allows your customers to pay through Skrill (Moneybookers) gateway. ' .
-				 'This plugin has been developed by <a href="http://dev.pathtoenlightenment.net">' .
+				 'This plugin has been developed by <a href="http://aelia.co">' .
 				 'Aelia/dev.p2e.net</a>. If you find it useful, and would like to support its ' .
 				 'development, please feel free to <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ">'.
 				 'make a donation</a>. Thanks.', $this->text_domain);
@@ -431,7 +432,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	function process_payment($order_id) {
-		$order = new WC_Order($order_id);
+		$order = new Aelia_Order($order_id);
 
 		$redirect_url = add_query_arg(array('order' => $order->id,
 																				'key' => $order->order_key,),
@@ -480,7 +481,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 		// Render Skrill form
 		//var_dump(implode("\n", $skrill_fields));die();
 
-		$order = new WC_Order($order_id);
+		$order = new Aelia_Order($order_id);
 		// Retrieve all the arguments to pass to Skrill
 		$skrill_args = $this->get_skrill_args($order);
 
@@ -521,7 +522,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 		$this->log(sprintf(__('Posted data (JSON): "%s".'), json_encode($posted_data)), true);
 
 		$order_id = get_value('transaction_id', $posted_data);
-		$order = new WC_Order($order_id);
+		$order = new Aelia_Order($order_id);
 		$this->log(sprintf(__('Order ID: "%s".'), $order_id), true);
 		$this->log(sprintf(__('WooCommerce Order: "%s".'), json_encode($order)), true);
 
@@ -575,7 +576,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 		if($result) {
 			$this->log(__('Checking that the total amount matches the one from the order.'), true);
 			$posted_order_total = get_value('amount', $posted_data);
-			$order_total = get_value('order_total', $order);
+			$order_total = $order->get_total();
 
 			$this->log(sprintf(__('WooCommerce Order: "%s".'), json_encode($order)), true);
 			$this->log(sprintf(__('WooCommerce Order Total: "%s". Posted order total: "%s".'),
@@ -611,7 +612,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 		$posted_data = $_POST;
 		if($this->is_payment_successful($posted_data)) {
 			$order_id = get_value('transaction_id', $posted_data);
-			$order = new WC_Order($order_id);
+			$order = new Aelia_Order($order_id);
 
 			// Process successful payment
 			$this->complete_order($order, $posted_data);

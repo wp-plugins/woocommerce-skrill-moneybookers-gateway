@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.11.140922
+* Added compatibility with WooCommerce 2.2.x.
+
 ####1.2.10.140819
 * Updated README files.
 

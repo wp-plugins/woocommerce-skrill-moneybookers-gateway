@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="name-of-project" default="build">
+<project name="WooCommerce Skrill Gateway" default="build">
 	<property name="artifacts_dir" value="${basedir}/build" />
 	<property name="release_dir" value="${artifacts_dir}/release" />
 	<property name="wp_unit_plugins_dir" value="${wp_unit_dir}/wordpress/wp-content/plugins/" />
@@ -119,7 +119,8 @@
 			<arg value="${basedir}/build/phpmd.xml" />
 			<arg value="--reportfile" />
 			<arg value="${basedir}/build/logs/pmd.xml" />
-			<arg value="--ignore=src/vendor/,tests/" />
+			<arg value="--ignore" />
+			<arg value="src/vendor/,tests/" />
 		</exec>
 	</target>
 
@@ -149,11 +150,11 @@
 		<exec executable="phpcpd">
 			<arg value="--log-pmd" />
 			<arg value="${basedir}/build/logs/pmd-cpd.xml" />
+			<arg value="--exclude" />
+			<arg value="vendor" />
+			<arg value="--exclude" />
+			<arg value="tests" />
 			<arg path="${basedir}/src" />
-			<arg value="--exclude" />
-			<arg value="src/vendor/" />
-			<arg value="--exclude" />
-			<arg value="tests/" />
 		</exec>
 	</target>
 
