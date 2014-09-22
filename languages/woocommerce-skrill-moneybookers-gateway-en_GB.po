@@ -61,7 +61,7 @@ msgstr ""
 
 #: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:206
 #@ woocommerce-skrill-moneybookers-gateway
-msgid "Allows your customers to pay through Skrill (Moneybookers) gateway. This plugin has been developed by <a href=\"http://dev.pathtoenlightenment.net\">Aelia/dev.p2e.net</a>. If you find it useful, and would like to support its development, please feel free to <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ\">make a donation</a>. Thanks."
+msgid "Allows your customers to pay through Skrill (Moneybookers) gateway. This plugin has been developed by <a href=\"http://aelia.co\">Aelia/dev.p2e.net</a>. If you find it useful, and would like to support its development, please feel free to <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ\">make a donation</a>. Thanks."
 msgstr ""
 
 #: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:254
