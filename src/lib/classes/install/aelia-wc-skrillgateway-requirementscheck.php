@@ -33,4 +33,36 @@ class Aelia_WC_Skrill_Gateway_RequirementsChecks extends Aelia_WC_RequirementsCh
 		$instance = new self();
 		return $instance;
 	}
+
+	/**
+	 * Display requirements errors that prevented the plugin from being loaded.
+	 */
+	public function plugin_requirements_notices() {
+		if(empty($this->requirements_errors)) {
+			return;
+		}
+
+		// Inline CSS styles have to be used because plugin is not loaded if
+		// requirements are missing, therefore the plugin's CSS files are ignored
+		echo '<div class="error fade">';
+		echo '<h4 class="wc_aeliamessage_header" style="margin: 1em 0 0 0">';
+		echo sprintf(__('Plugin "%s" could not be loaded due to missing requirements.', $this->text_domain),
+								 $this->plugin_name);
+		echo '</h4>';
+		echo '<div class="info">';
+		echo __('<b>Note</b>: even though the plugin might be showing as "<b><i>active</i></b>", it will not load ' .
+						'and its features will not be available until its requirements are met. If you need assistance, ' .
+						'on this matter, please use the <a href="http://wordpress.org/support/plugin/woocommerce-skrill-moneybookers-gateway">' .
+						'plugin support section</a>. Please note that this plugin is subject to the ' .
+						'<a href="https://wordpress.org/plugins/woocommerce-skrill-moneybookers-gateway/faq/"><b>terms of ' .
+						'support described on the plugin page</b></a>.',
+						$this->text_domain);
+		echo '</div>';
+		echo '<ul style="list-style: disc inside">';
+		echo '<li>';
+		echo implode('</li><li>', $this->requirements_errors);
+		echo '</li>';
+		echo '</ul>';
+		echo '</div>';
+	}
 }

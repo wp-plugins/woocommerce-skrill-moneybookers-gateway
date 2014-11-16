@@ -1,6 +1,11 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.12.141116
+* Improved "missing requirements" message:
+	* Corrected wording to highlight the support policy.
+	* Corrected link to the support section.
+
 ####1.2.11.140922
 * Added compatibility with WooCommerce 2.2.x.
 
