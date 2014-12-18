@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.14.141218
+* Updated base class for requirement checks.
+
 ####1.2.13.141120
 * Added logic to translate the 2-digits currency codes used by WooCommerce into the 3-digits codes required by Skrill.
 

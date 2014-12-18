@@ -25,7 +25,7 @@ if(!class_exists('Aelia_WC_RequirementsChecks')) {
 			'WooCommerce' => '2.0.10',
 			//'Aelia Foundation Classes for WooCommerce' => array(
 			//	'version' => '1.0.0.140508',
-			//	'extra_info' => 'You can get the plugin <a href="http://aelia.co/downloads/wc-aelia-foundation-classes.zip">from our site</a>, free of charge.',
+			//	'extra_info' => 'You can get the plugin <a href="http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip">from our site</a>, free of charge.',
 			//),
 		);
 
@@ -207,18 +207,18 @@ if(!class_exists('Aelia_WC_RequirementsChecks')) {
 			echo sprintf(__('Plugin "%s" could not be loaded due to missing requirements.', $this->text_domain),
 									 $this->plugin_name);
 			echo '</h4>';
-			echo '<div class="info">';
-			echo __('<b>Note</b>: even though the plugin might be showing as "<b><i>active</i></b>", it will not load ' .
-							'and its features will not be available until its requirements are met. If you need assistance, ' .
-							'on this matter, please <a href="https://aelia.freshdesk.com/helpdesk/tickets/new">contact our ' .
-							'Support team</a>.',
-							$this->text_domain);
-			echo '</div>';
 			echo '<ul style="list-style: disc inside">';
 			echo '<li>';
 			echo implode('</li><li>', $this->requirements_errors);
 			echo '</li>';
 			echo '</ul>';
+			echo '<p class="info">';
+			echo __('<b>Note</b>: even though the plugin might be showing as "<b><i>active</i></b>", it will not load ' .
+							'and its features will not be available until its requirements are met. If you need assistance, ' .
+							'on this matter, please <a href="https://aelia.freshdesk.com/helpdesk/tickets/new">contact our ' .
+							'Support team</a>.',
+							$this->text_domain);
+			echo '</p>';
 			echo '</div>';
 		}
 
