@@ -696,7 +696,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 
 		$skrill_args = apply_filters('wc_gateway_skrill_form_fields', $skrill_args);
 
-		$this->log(sprintf(__('Skrill arguments (JSON): ', $this->text_domain),
+		$this->log(sprintf(__('Skrill arguments (JSON): %s', $this->text_domain),
 											 json_encode($skrill_args)),
 							 true);
 		return $skrill_args;

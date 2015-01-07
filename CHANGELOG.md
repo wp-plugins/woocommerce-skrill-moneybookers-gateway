@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.15.150107
+* Fixed bug in debug code. The bug prevented debug information from being logged.
+
 ####1.2.14.141218
 * Updated base class for requirement checks.
 

@@ -228,8 +228,8 @@ if(!class_exists('Aelia_WC_RequirementsChecks')) {
 		public function load_required_plugins() {
 			foreach($this->required_plugins_info as $plugin_name => $plugin_info) {
 				// Debug
-				//var_dump(ABSPATH . 'wp-content/plugins/' . $plugin_info['Path']);
-				require_once(ABSPATH . 'wp-content/plugins/' . $plugin_info['Path']);
+				//var_dump(WP_PLUGIN_DIR . '/' . $plugin_info['Path']);
+				require_once(WP_PLUGIN_DIR . '/' . $plugin_info['Path']);
 			}
 		}
 	}
