@@ -464,7 +464,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 		$this->test_url = 'http://www.moneybookers.com/app/test_payment.pl';
 		$this->live_url = 'https://www.moneybookers.com/app/payment.pl';
 		// Set URL for successful and failed payment notifications(using WC API)
-		$this->status_url = str_replace('https:', 'http:', add_query_arg(array('wc-api' => 'WC_Gateway_Skrill'), home_url('/')));
+		$this->status_url = add_query_arg(array('wc-api' => 'WC_Gateway_Skrill'), home_url('/'));
 
 		// Load the settings.
 		$this->init_form_fields();

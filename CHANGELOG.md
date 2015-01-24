@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.16.150124
+* Fixed Status URL. The URL was incorrectly forced to HTTP, thus making the Skrill response fail when the site was configured to use only HTTPS.
+
 ####1.2.15.150107
 * Fixed bug in debug code. The bug prevented debug information from being logged.
 
