@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: woocommerce, skrill, moneybookers
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 1.2.16.150124
+Stable tag: 1.2.17.150208
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,23 +13,43 @@ Allows WooCommerce to accept payments using Skrill gateway.
 == Description ==
 The plugin will add a new payment gateway called Skrill (Moneybookers), which will add support for the Skrill payment gateway. Upon checkout, your customers will be redirected to a secure portal where they can complete their payment. Both standard and Quick Checkout modes are supported. - See more at: http://aelia.co/shop/skrill-gateway-for-woocommerce-2-0-x/
 
-##Included localisations
+= IMPORTANT =
+**Make sure that you read and understand the plugin requirements and the FAQ before installing this plugin**. Almost all support requests we receive are related to missing requirements, and incomplete reading of the message that is displayed when such requirements are not met.
+
+= Included localisations =
 * English (GB)
 * Portoguese (PT), courtesy of [jpBenfica](http://www.loja77.com/).
 
-##Requirements
+= Requirements =
 * WordPress 3.6 or later
 * PHP 5.3 or later
 * WooCommerce 2.0.x/2.1x/2.2.x
-* [AFC plugin for WooCommerce](http://aelia.co/downloads/wc-aelia-foundation-classes.zip) 1.0.10.140819 or later.
+* [Aelia Foundation Classes plugin for WooCommerce](http://aelia.co/downloads/wc-aelia-foundation-classes.zip) 1.0.10.140819 or later.
 
-## Current limitations
+= Current limitations =
 * Plugin does not yet support pre-authorisation or subscriptions.
 
-## Notes
+= Notes =
 * This plugin is provided as a **free** alternative to the many commercial plugins that add the Skrill payment gateway to WooCommerce, and it's not automatically covered by free support. See FAQ for more details.
 
 == Frequently Asked Questions ==
+
+= I get a message saying that plugin could not be loaded, what do I do? =
+
+The plugin includes a dependency checking mechanism that will prevent it from loading if its requirements are not met. This mechanism is a great improvement over the typical behaviour exhibited by other plugins, that simply crash when some requirements are missing.
+
+If your installation is missing some requirements, you will see the following message:
+
+**Plugin *<plugin name>* could not be loaded due to missing requirements.**
+
+* *<list of requirements here>*
+
+***Note**: even though the plugin might be showing as "active", it will not load and its features will not be available until its requirements are met.*
+
+If you see the above message, simply go through at the list of requirements and ensure that your system covers them. Once they missing requirements are installed, the plugin will work automatically.
+
+**Tip**  
+The most common mistake is to forget the installation of the [Aelia Foundation Classes for WooCommerce](http://aelia.co/downloads/wc-aelia-foundation-classes.zip), whic is the framework on which this plugin is based
 
 = What is the support policy for this plugin? =
 
@@ -52,7 +72,7 @@ Should you have any question about this product, please use the [product support
 
 For more information about installation and management of plugins, please refer to [WordPress documentation](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
-###Setup
+= Setup =
 On the settings page, the following settings are required:
 
 * **Skrill Email**: this is the email address associated to your Skrill merchant account.
@@ -60,12 +80,15 @@ On the settings page, the following settings are required:
 
 If you wish to get more details about Skrill, please refer to [Skrill website](http://www.skrill.com/).
 
-### Integration with Currency Switcher
+= Integration with Currency Switcher =
 This plugin is fully compatible with the [Currency Switcher](aelia.co/shop/currency-switcher-woocommerce/). If you are using the Currency Switcher, and you find out that the Skrill gateway is not appearing on the checkout page, please go to ```WooCommerce > Currency Switcher Options > Payment Gateways``` and make sure that **Skrill** is listed amongst the **Enabled Gateways**.
 
 == Changelog ==
 
-= 1.2.16.150124 =
+= 1.2.17.150208 =
+* Updated `readme.txt`.
+
+= 1.2.17.150208 =
 * Fixed Status URL. The URL was incorrectly forced to HTTP, thus making the Skrill response fail when the site was configured to use only HTTPS. Many thanks to **yeray** for the heads up.
 
 = 1.2.15.150107 =
