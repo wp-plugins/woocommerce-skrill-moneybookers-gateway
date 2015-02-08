@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: woocommerce, skrill, moneybookers
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 1.2.17.150208
+Stable tag: 1.2.18.150208
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,7 +49,7 @@ If your installation is missing some requirements, you will see the following me
 If you see the above message, simply go through at the list of requirements and ensure that your system covers them. Once they missing requirements are installed, the plugin will work automatically.
 
 **Tip**
-The most common mistake is to forget the installation of the [Aelia Foundation Classes for WooCommerce](http://aelia.co/downloads/wc-aelia-foundation-classes.zip), whic is the framework on which this plugin is based
+The most common mistake is to forget the installation of the [Aelia Foundation Classes for WooCommerce](http://aelia.co/downloads/wc-aelia-foundation-classes.zip), i.e. the framework on which this plugin is based.
 
 = What is the support policy for this plugin? =
 
@@ -85,10 +85,10 @@ This plugin is fully compatible with the [Currency Switcher](aelia.co/shop/curre
 
 == Changelog ==
 
-= 1.2.17.150208 =
+= 1.2.18.150208 =
 * Updated `readme.txt`.
 
-= 1.2.17.150208 =
+= 1.2.18.150208 =
 * Fixed Status URL. The URL was incorrectly forced to HTTP, thus making the Skrill response fail when the site was configured to use only HTTPS. Many thanks to **yeray** for the heads up.
 
 = 1.2.15.150107 =
