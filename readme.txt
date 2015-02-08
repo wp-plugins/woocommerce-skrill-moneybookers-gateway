@@ -42,13 +42,13 @@ If your installation is missing some requirements, you will see the following me
 
 **Plugin *<plugin name>* could not be loaded due to missing requirements.**
 
-* *<list of requirements here>*
+* <list of missing requirements here>
 
 ***Note**: even though the plugin might be showing as "active", it will not load and its features will not be available until its requirements are met.*
 
 If you see the above message, simply go through at the list of requirements and ensure that your system covers them. Once they missing requirements are installed, the plugin will work automatically.
 
-**Tip**  
+**Tip**
 The most common mistake is to forget the installation of the [Aelia Foundation Classes for WooCommerce](http://aelia.co/downloads/wc-aelia-foundation-classes.zip), whic is the framework on which this plugin is based
 
 = What is the support policy for this plugin? =
