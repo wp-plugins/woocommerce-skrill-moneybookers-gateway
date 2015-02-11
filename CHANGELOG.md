@@ -1,6 +1,9 @@
 # Aelia Skrill Gateway - Change Log
 
 ## Version 1.x
+####1.2.20.150211
+* Fixed incorrect class reference.
+
 ####1.2.19.150211
 * Improved compatibility with WooCommerce 2.3:
 	* `WooCommerce::logger()` method has been removed. Altered logging mechanism to deal with breaking change.
