@@ -6,6 +6,7 @@ if(class_exists('WC_Gateway_Skrill')) {
 
 use Aelia\WC\SkrillGateway\WC_Skrill_Gateway_Plugin;
 use Aelia\WC\Order as Aelia_Order;
+use Aelia\WC\SkrillGateway\Definitions;
 
 /**
  * Class to implement the Skrill payment system.
