@@ -25,7 +25,7 @@ if(!class_exists('Aelia_WC_RequirementsChecks')) {
 			'WooCommerce' => '2.0.10',
 			//'Aelia Foundation Classes for WooCommerce' => array(
 			//	'version' => '1.0.0.140508',
-			//	'extra_info' => 'You can get the plugin <a href="http://dev.pathtoenlightenment.net/downloads/wc-aelia-foundation-classes.zip">from our site</a>, free of charge.',
+			//	'extra_info' => 'You can get the plugin <a href="http://aelia.co/downloads/wc-aelia-foundation-classes.zip">from our site</a>, free of charge.',
 			//),
 		);
 

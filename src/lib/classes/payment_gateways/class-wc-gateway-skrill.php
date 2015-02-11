@@ -19,6 +19,9 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 	// @var string The ID to use when logging messages
 	protected $log_id = 'skrill';
 
+	// @var WC_Logger The logger that will be used by the gateway.
+	protected $logger;
+
 	// @var array A list of currencies supported by the Skrill gateway
 	protected $supported_currencies = array(
 		'EUR' => 'Euro',
@@ -383,8 +386,7 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 		if($is_debug_msg && !$this->debug_mode()) {
 			return;
 		}
-
-		$this->woocommerce()->logger()->add($this->log_id, $message);
+		$this->logger->add($this->log_id, $message);
 	}
 
 	/**
@@ -448,14 +450,14 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 	public function __construct() {
 		// Get text domain from main plugin
 		$this->text_domain = WC_Skrill_Gateway_Plugin::$text_domain;
-		$this->log = $this->woocommerce()->logger();
+		$this->logger = new \WC_Logger();
 
 		$this->id = 'skrill';
 		$this->method_title = __('Skrill (Moneybookers)', $this->text_domain);
 		$this->method_description =
 			__('Allows your customers to pay through Skrill (Moneybookers) gateway. ' .
 				 'This plugin has been developed by <a href="http://aelia.co">' .
-				 'Aelia/dev.p2e.net</a>. If you find it useful, and would like to support its ' .
+				 'Aelia</a>. If you find it useful, and would like to support its ' .
 				 'development, please feel free to <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ">'.
 				 'make a donation</a>. Thanks.', $this->text_domain);
 
