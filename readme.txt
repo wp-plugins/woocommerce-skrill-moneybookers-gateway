@@ -3,8 +3,8 @@ Contributors: daigo75, jpBenfica
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ
 Tags: woocommerce, skrill, moneybookers
 Requires at least: 3.6
-Tested up to: 3.9.1
-Stable tag: 1.2.20.150211
+Tested up to: 4.1
+Stable tag: 1.2.23.150418
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,16 @@ If you wish to get more details about Skrill, please refer to [Skrill website](h
 This plugin is fully compatible with the [Currency Switcher](aelia.co/shop/currency-switcher-woocommerce/). If you are using the Currency Switcher, and you find out that the Skrill gateway is not appearing on the checkout page, please go to ```WooCommerce > Currency Switcher Options > Payment Gateways``` and make sure that **Skrill** is listed amongst the **Enabled Gateways**.
 
 == Changelog ==
+
+= 1.2.23.150418 =
+* Updated class used for requirements checking. The class now supports automatic installation of required plugins.
+
+= 1.2.22.150303 =
+* Improved requirement checking. The plugin can now auto-install the AFC plugin.
+* Altered build script to include language files.
+
+= 1.2.21.150227 =
+* Updated base class usef for requirement checking.
 
 = 1.2.20.150211 =
 * Fixed incorrect class reference.
