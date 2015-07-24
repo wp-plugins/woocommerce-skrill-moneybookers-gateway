@@ -1,0 +1,400 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Skrill Gateway v1.2.6.140611\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-07-05 23:20:00-0000\n"
+"Last-Translator: Diane Bakker <info@studio-vici.nl>\n"
+"Language-Team: dianeb@/Netherlands <info@studio-vici.nl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Textwrangler 4.5.12\n"
+"X-Textwrangler-SourceCharset: UTF-8\n"
+"X-Textwrangler-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"Language: nl_NL\n"
+"X-Textwrangler-Basepath: .\n"
+"X-Textwrangler-SearchPath-0: .\n"
+
+#  woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/install/aelia-wc-requirementscheck.php:59
+#, php-format
+msgid "Plugin requires \"%s\" PHP extension."
+msgstr "Vereist door Plugin \"%s\" PHP extensie."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/install/aelia-wc-requirementscheck.php:87
+#, php-format
+msgid "Plugin \"%s\" must be version \"%s\" or later."
+msgstr "Plugin \"%s\" moet versie \"%s\" of recenter zijn."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/install/aelia-wc-requirementscheck.php:93
+#, php-format
+msgid "Plugin \"%s\" must be installed and activated."
+msgstr "Plugin \"%s\" moet geïnstalleerd en actief zijn."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/install/aelia-wc-requirementscheck.php:114
+msgid "Plugin requires PHP 5.3 or greater."
+msgstr "Plugin vereist PHP 5.3 of hoger."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/install/aelia-wc-requirementscheck.php:191
+#, php-format
+msgid "Plugin \"%s\" could not be loaded due to missing requirements."
+msgstr "Plugin \"%s\" kan niet worden geladen ivm ontbrekende vereisten."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/install/aelia-wc-requirementscheck.php:198
+msgid ""
+"<b>Note</b>: even though the plugin might be showing as \"<b><i>active</i></"
+"b>\", it will not load and its features will not be available until its "
+"requirements are met. If you need assistance, on this matter, please <a href="
+"\"https://aelia.freshdesk.com/helpdesk/tickets/new\">contact our Support "
+"team</a>."
+msgstr ""
+"<b>Opmerking</b>: zelfs al lijkt de plugin \"<b><i>actief</i></b>\", "
+"deze zal niet laden en de features ervan zullen niet beschikbaar zijn totdat aan "
+"de vereisten is voldaan. Als je hierbij hulp nodig hebt, neem dan a.u.b. contact op met "
+"<a href=\"https://aelia.freshdesk.com/helpdesk/tickets/new"
+"\">ons Support Team</a>."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:200
+msgid "Skrill (Moneybookers)"
+msgstr "Skrill (Moneybookers)"
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:206
+msgid ""
+"Allows your customers to pay through Skrill (Moneybookers) gateway. This "
+"plugin has been developed by <a href=\"http://aelia.co"
+"\">Aelia/dev.p2e.net</a>. If you find it useful, and would like to support "
+"its development, please feel free to <a href=\"https://www.paypal.com/cgi-"
+"bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ\">make a donation</"
+"a>. Thanks."
+msgstr ""
+"Hierdoor kunnen je klanten betalen via de Skrill (Moneybookers) gateway. "
+"Deze plugin is ontwikkeld door <a href=\"http://aelia.co"
+"\">Aelia/dev.p2e.net</a>. Als je deze plugin nuttig vindt en ons wilt ondersteunen "
+"dan kun je <a href=\"https://www.paypal.com/cgi-bin/
+"webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ"
+"\">een donatie doen</a>. Hartelijk bedankt."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:254
+msgid "Enable/Disable"
+msgstr "Inschakelen/Uitschakelen"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:256
+msgid "Enable Skrill (Moneybookers) checkout"
+msgstr "Afrekenen via Skrill (Moneybookers) inschakelen"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:260
+msgid "Title"
+msgstr "Titel"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:262
+msgid "This controls the title which the user sees during checkout."
+msgstr "Hiermee wordt de titel ingesteld die de gebruiker ziet tijdens het afrekenen."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:263
+msgid "Credit Card (Skrill)"
+msgstr "Creditcard (Skrill)"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:267
+msgid "Description"
+msgstr "Beschrijving"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:269
+msgid "This controls the description which the user sees during checkout."
+msgstr "Hiermee wordt de beschrijving ingesteld die de gebruiker ziet tijdens "
+"het afrekenen."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:270
+msgid "Pay securely with your credit card."
+msgstr "Betaal veilig met je creditcard."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:273
+msgid "Skrill Email"
+msgstr "E-mail Skrill"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:275
+msgid "The email address associated with your Skrill account."
+msgstr "Het e-mail adres wat hoort bij je Skrill account."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:280
+msgid "Secret Word"
+msgstr "Geheim Woord"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:282
+msgid ""
+"The Secret Word that will be used to authenticate the communication with "
+"Skrill."
+msgstr ""
+"Het Geheime Woord (Secret Word) dat zal worden gebruikt bij de authenticatie van de "
+"communicatie met Skrill."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:287
+msgid "Default language for Skrill portal"
+msgstr "Standaard taal voor Skrill portal"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:290
+msgid ""
+"This will be the default language which will be used to display the Skrill "
+"portal to your customers, if they choose a language that Skrill does not "
+"support."
+msgstr ""
+"Dit zal de standaard taal zijn die zal worden gebruikt om het Skrill portal aan je "
+"klanten te tonen, wanneer ze een taal kiezen die niet door Skrill wordt ondersteund."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:295
+msgid "Gateway Testing"
+msgstr "Gateway Test"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:300
+msgid "Use Skrill test portal"
+msgstr "Gebruik Skrill test portal"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:302
+msgid "Enable Skrill test portal"
+msgstr "Skrill test portal inschakelen"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:304
+msgid "Skrill test portal can be used to test payments."
+msgstr "Het Skrill test portal kan worden gebruikt om betalingen te testen."
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:307
+msgid "Debug Log"
+msgstr "Debug Log"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:309
+msgid "Enable debug mode"
+msgstr "Debug modus inschakelen"
+
+#  woocommerce
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:312
+#, php-format
+msgid ""
+"Enable debug mode and log Skrill events to file <code>woocommerce/logs/%s-%s."
+"txt</code>."
+msgstr ""
+"Schakel debug modus in en log Skrill gebeurtenissen naar bestand <code>woocommerce/logs/%s-%s."
+"txt</code>."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:331
+msgid "Skrill Gateway - Email address is not configured."
+msgstr "Skrill Gateway - E-mail adres is niet geconfigureerd."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:335
+msgid "Skrill Gateway - Secret word is not configured."
+msgstr "Skrill Gateway - Geheim Woord is niet geconfigureerd."
+
+#  woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:340
+#, php-format
+msgid "Skrill Gateway - Currency not supported: \"%s\"."
+msgstr "Skrill Gateway - Valuta wordt niet ondersteund: \"%s\"."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:348
+msgid "Skrill Gateway disabled."
+msgstr "Skrill Gateway uitgeschakeld."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:387
+#, php-format
+msgid "Skrill - Generating payment form for order #%s."
+msgstr "Skrill - Genereren van betalingsformulier voor order #%s."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:410
+#, php-format
+msgid "Order #%s"
+msgstr "Order #%s"
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:420
+msgid "Skrill arguments (JSON): "
+msgstr "Skrill argumenten (JSON):"
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:456
+msgid "Thank you for your order"
+msgstr "Bedankt voor je bestelling"
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:461
+msgid ""
+"Please click on the the button below to proceed to a secure page where you "
+"will be able to complete your payment."
+msgstr ""
+"Klik a.u.b. op de onderstaande knop om door te gaan naar een beveiligde pagina waar je "
+"de betaling zult kunnen afronden."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:467
+msgid ""
+"You will now be redirected to a secure page where you will be able to "
+"complete your payment"
+msgstr ""
+"Je zult nu worden doorgestuurd naar een beveiligde pagina waar je de betaling "
+"zult kunnen afronden"
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:520
+msgid "Skrill - Checking response data."
+msgstr "Skrill - Controleren van respons data."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:521
+#, php-format
+msgid "Posted data (JSON): \"%s\"."
+msgstr "Ingediende data (JSON): \"%s\"."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:525
+#, php-format
+msgid "Order ID: \"%s\"."
+msgstr "Order ID: \"%s\"."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:526
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:580
+#, php-format
+msgid "WooCommerce Order: \"%s\"."
+msgstr "WooCommerce Order: \"%s\"."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:529
+msgid "Checking response hash."
+msgstr "Controleren van respons hash."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:532
+msgid "Response signature check failed."
+msgstr "Controle van respons signature is mislukt."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:537
+msgid ""
+"Checking that received payment recipient email matches the expected one."
+msgstr ""
+"Aan het controleren of e-mail adres van ontvanger van de betaling overeenkomt met "
+"het verwachte e-mail adres."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:542
+#, php-format
+msgid ""
+"Payment recipient email mismatch. Expected email: \"%s\". Received email: "
+"\"%s\"."
+msgstr ""
+"E-mail adres ontvanger betaling komt niet overeen. Verwachte E-mail: \"%s\". Ontvangen "
+"E-mail: \"%s\"."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:550
+msgid "Checking that payment status is \"successful\"."
+msgstr "Aan het controleren of betalingsstatus \"succesvol\" is."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:555
+#, php-format
+msgid "Payment failed. Failure reason code: \"%s\"."
+msgstr "Betaling mislukt. Foutcode: \"%s\"."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:556
+msgid "n/a"
+msgstr "n/a"
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:562
+msgid "Checking that that received order key matches the one from the order."
+msgstr "Aan het controleren of de ontvangen order key overeenkomt met die van de order."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:568
+#, php-format
+msgid ""
+"Order key mismatch. Expected order key: \"%s\".Received order key: \"%s\"."
+msgstr ""
+"Order key komt niet overeen. Verwachte order key: \"%s\". Ontvangen order key: \"%s\"."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:576
+msgid "Checking that the total amount matches the one from the order."
+msgstr "Aan het controleren of het totaalbedrag overeenkomt met dat van de order."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:581
+#, php-format
+msgid "WooCommerce Order Total: \"%s\". Posted order total: \"%s\"."
+msgstr "WooCommerce Ordertotaal: \"%s\". Ingediend ordertotaal: \"%s\"."
+
+#  default
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:587
+#, php-format
+msgid "Formatted WooCommerce Order Total: \"%s\"."
+msgstr "Geformateerd WooCommerce Order Totaal: \"%s\"."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:592
+#, php-format
+msgid ""
+"Order total mismatch. Expected order total: \"%s\".Received order total: \"%s"
+"\"."
+msgstr ""
+"Ordertotaal komt niet overeen. Verwacht ordertotaal: \"%s\". Ontvangen ordertotaal: "
+"\"%s\"."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:599
+msgid "Order payment was successful."
+msgstr "Order betaling gelukt."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/lib/classes/payment_gateways/class-wc-gateway-skrill.php:663
+#, php-format
+msgid "Skrill Payment Completed. Skrill transaction ID: \"%s\"."
+msgstr "Skrill betaling voltooid. Skrill transactie-ID: \"%s\"."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/views/gateways/skrill-receipt-page-view.php:21
+msgid ""
+"Debug mode is active, therefore automatic redirection to Skrill is disabled. "
+"please click on the button below to submit the payment to Skrill."
+msgstr ""
+"Debug modus is actief; daarom is automatisch doorsturen naar Skrill uitgeschakeld. "
+"Klik a.u.b. op de onderstaande knop om de betaling naar Skrill te sturen."
+
+# @ woocommerce-skrill-moneybookers-gateway
+#: src/views/gateways/skrill-receipt-page-view.php:45
+msgid "Pay via Skrill"
+msgstr "Betaal via Skrill"

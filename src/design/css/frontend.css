@@ -1,0 +1,11 @@
+/* CSS Styles for Frontend pages */
+
+.debug {
+	background-color: #FFFFE0;
+	border-color: #E6DB55;
+	padding: 0 .6em;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+}
