@@ -3,7 +3,7 @@ Contributors: daigo75, jpBenfica
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8ND89AA8B8QJ
 Tags: woocommerce, skrill, moneybookers
 Requires at least: 3.6
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: 1.2.24.150722
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
