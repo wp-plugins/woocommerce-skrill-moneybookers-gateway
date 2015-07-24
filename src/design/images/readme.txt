@@ -1,1 +1,0 @@
-This folder should contain all the images used by the plugin.
