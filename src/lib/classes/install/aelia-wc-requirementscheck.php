@@ -448,8 +448,13 @@ if(!class_exists('Aelia_WC_RequirementsChecks')) {
 					float: none;
 				}
 
+				.wc_aelia.message .spinner {
+					display: none;
+				}
+
 				.wc_aelia.message .spinner.visible {
 					display: inline-block;
+					visibility: visible;
 				}
 			</style>
 			<div class="wc_aelia message error fade">

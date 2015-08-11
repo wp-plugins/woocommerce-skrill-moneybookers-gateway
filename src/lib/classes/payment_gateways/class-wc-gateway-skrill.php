@@ -506,6 +506,13 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 	 * Initialise Gateway Settings Form Fields.
 	 */
 	public function init_form_fields() {
+		if(function_exists('wc_get_log_file_path')) {
+			$log_file_path = wc_get_log_file_path($this->log_id);
+		}
+		else {
+			$log_file_path = sprintf('woocommerce/logs/%s-%s.txt', $this->log_id, sanitize_file_name(wp_hash($this->log_id)));
+		}
+
 		$this->form_fields = array(
 			'enabled' => array(
 				'title' => __('Enable/Disable', 'woocommerce'),
@@ -566,9 +573,8 @@ class WC_Gateway_Skrill extends WC_Payment_Gateway {
 				'label' => __('Enable debug mode', 'woocommerce'),
 				'default' => 'yes',
 				'description' => sprintf(__('Enable debug mode and log Skrill events to file ' .
-																		'<code>woocommerce/logs/%s-%s.txt</code>.', 'woocommerce'),
-																 $this->log_id,
-																 sanitize_file_name(wp_hash($this->log_id))),
+																		'<code>%s</code>.', 'woocommerce'),
+																 $log_file_path),
 			),
 		);
 	}
